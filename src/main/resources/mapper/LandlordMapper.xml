@@ -5,4 +5,47 @@
     <select id="selectById" resultType="com.rentalhousing.pojo.Landlord">
         select * from landlord where landlord_id = #{landlord_id};
     </select>
+
+    <insert id="registLandlord" parameterType="com.rentalhousing.pojo.Landlord">
+        insert into landlord(landlord_phone,landlord_password,landlord_time,landlord_mail) VALUES (#{landlord_phone},#{landlord_password},#{landlord_time},#{landlord_mail});
+    </insert>
+
+    <select id="isRegist" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from landlord where landlord_phone = #{landlord_phone};
+    </select>
+
+    <select id="loginLandlord" parameterType="com.rentalhousing.pojo.Landlord" resultType="com.rentalhousing.pojo.Landlord">
+      SELECT * from landlord where landlord_phone = #{landlord_phone} and landlord_password=#{landlord_password};
+    </select>
+
+    <update id="updateLandlord" parameterType="com.rentalhousing.pojo.Landlord">
+        UPDATE landlord
+        <set>
+            <if test="landlord_nickname != null">
+                landlord_nickname=#{landlord_nickname},
+            </if>
+            <if test="landlord_realname != null">
+                landlord_realname=#{landlord_realname},
+            </if>
+            <if test="landlord_IDnumber != null">
+                landlord_IDnumber=#{landlord_IDnumber},
+            </if>
+            <if test="landlord_contact != null">
+                landlord_contact=#{landlord_contact},
+            </if>
+            <if test="landlord_pic != null">
+                landlord_pic=#{landlord_pic}
+            </if>
+            <if test="landlord_sex != null">
+                landlord_sex=#{landlord_sex}
+            </if>
+            <if test="landlord_password != null">
+                landlord_password=#{landlord_password}
+            </if>
+            <if test="landlord_mail != null">
+                landlord_mail=#{landlord_mail}
+            </if>
+        </set>
+        where landlord_id = #{landlord_id};
+    </update>
 </mapper>
