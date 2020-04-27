@@ -34,16 +34,16 @@
                 landlord_contact=#{landlord_contact},
             </if>
             <if test="landlord_pic != null">
-                landlord_pic=#{landlord_pic}
+                landlord_pic=#{landlord_pic},
             </if>
             <if test="landlord_sex != null">
-                landlord_sex=#{landlord_sex}
+                landlord_sex=#{landlord_sex},
             </if>
             <if test="landlord_password != null">
-                landlord_password=#{landlord_password}
+                landlord_password=#{landlord_password},
             </if>
             <if test="landlord_mail != null">
-                landlord_mail=#{landlord_mail}
+                landlord_mail=#{landlord_mail},
             </if>
         </set>
         where landlord_id = #{landlord_id};

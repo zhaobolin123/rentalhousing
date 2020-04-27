@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rentalhousing.mapper.TenantMapper">
+
+    <select id="selectTenantById" resultType="com.rentalhousing.pojo.Tenant">
+        select * from tenant where tenant_id = #{tenant_id};
+    </select>
+
+    <insert id="registTenant" parameterType="com.rentalhousing.pojo.Tenant">
+        insert into tenant(tenant_phone,tenant_password,tenant_time,tenant_mail) VALUES (#{tenant_phone},#{tenant_password},#{tenant_time},#{tenant_mail});
+    </insert>
+
+    <select id="isTenantRegist" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from tenant where tenant_phone = #{tenant_phone};
+    </select>
+
+    <select id="loginTenant" parameterType="com.rentalhousing.pojo.Tenant" resultType="com.rentalhousing.pojo.Tenant">
+      SELECT * from tenant where tenant_phone = #{tenant_phone} and tenant_password=#{tenant_password};
+    </select>
+
+    <update id="updateTenant" parameterType="com.rentalhousing.pojo.Tenant">
+        UPDATE tenant
+        <set>
+            <if test="tenant_nickname != null">
+                tenant_nickname=#{tenant_nickname},
+            </if>
+            <if test="tenant_realname != null">
+                tenant_realname=#{tenant_realname},
+            </if>
+            <if test="tenant_IDnumber != null">
+                tenant_IDnumber=#{tenant_IDnumber},
+            </if>
+            <if test="tenant_contact != null">
+                tenant_contact=#{tenant_contact},
+            </if>
+            <if test="tenant_pic != null">
+                tenant_pic=#{tenant_pic},
+            </if>
+            <if test="tenant_sex != null">
+                tenant_sex=#{tenant_sex},
+            </if>
+            <if test="tenant_password != null">
+                tenant_password=#{tenant_password},
+            </if>
+            <if test="tenant_mail != null">
+                tenant_mail=#{tenant_mail}
+            </if>
+        </set>
+        where tenant_id = #{tenant_id};
+    </update>
+
+</mapper>
