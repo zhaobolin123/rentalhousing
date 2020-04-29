@@ -78,10 +78,7 @@ public class HousingresourcesServiceImpl implements HousingresourcesService {
     public Map<String, Object> addHousingresources(Housingresources housingresources) throws Exception {
         Map<String,Object> map = new HashMap<>();
 
-        if (StringUtils.isEmpty(1) || Objects.equals("", 1)) {
-            return ResUtil.error(map,"001","传入参数不能为空!");
-        }
-        else if (StringUtils.isEmpty(1) || Objects.equals("", 1)) {
+        if (StringUtils.isEmpty(housingresources.getLandlord_id()) || Objects.equals("", housingresources.getLandlord_id())) {
             return ResUtil.error(map,"001","传入参数不能为空!");
         }
         else{
