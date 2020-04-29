@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rentalhousing.mapper.HousingresourcesMapper">
+
+    <sql id="HousingresourcesType">
+        <if test="housingresources_name!=null and housingresources_name!=''">
+            AND housingresources_name like "%"#{housingresources_name}"%"
+        </if>
+        <if test="housingresources_category!=null and housingresources_category!=''">
+            AND housingresources_category = #{housingresources_category}
+        </if>
+        <if test="housingresources_type!=null and housingresources_type!=''">
+            AND housingresources_type = #{housingresources_type}
+        </if>
+        <if test="housingresources_floor!=null and housingresources_floor!=''">
+            AND housingresources_floor = #{housingresources_floor}
+        </if>
+        <if test="housingresources_orientations!=null and housingresources_orientations!=''">
+            AND housingresources_orientations = #{housingresources_orientations}
+        </if>
+        <if test="housingresources_renttype!=null and housingresources_renttype!=''">
+            AND housingresources_renttype = #{housingresources_renttype}
+        </if>
+        <if test="housingresources_price!=null and housingresources_price!=''">
+            AND housingresources_price > #{housingresources_price_min}
+            AND #{housingresources_price_max} > housingresources_price
+        </if>
+    </sql>
+
+    <select id="selectHousingresourcesList" parameterType="com.rentalhousing.dto.HousingresourcesDto" resultType="com.rentalhousing.po.Housingresources">
+      SELECT
+       housingresources_id,
+        landlord_id,
+        housingresources_name,
+        housingresources_category,
+        housingresources_village,
+        housingresources_type,
+        housingresources_introduce,
+        housingresources_floor,
+        housingresources_orientations,
+        housingresources_renttype,
+        housingresources_price,
+        housingresources_area,
+        housingresources_longitude,
+        housingresources_latitude,
+        housingresources_address,
+        housingresources_pic
+       from housingresources
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <include refid="HousingresourcesType" />
+        </trim>
+        limit #{currIndex},#{pageSize}
+    </select>
+
+    <select id="selectHousingresourcesById" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Housingresources">
+      SELECT * from housingresources where housingresources_id = #{housingresources_id}
+    </select>
+
+    <insert id="addHousingresources" parameterType="com.rentalhousing.po.Housingresources">
+        insert into housingresources (
+        landlord_id,
+        housingresources_name,
+        housingresources_category,
+        housingresources_village,
+        housingresources_type,
+        housingresources_introduce,
+        housingresources_floor,
+        housingresources_orientations,
+        housingresources_renttype,
+        housingresources_price,
+        housingresources_area,
+        housingresources_longitude,
+        housingresources_latitude,
+        housingresources_address,
+        housingresources_pic
+        ) VALUES(
+        #{landlord_id},
+        #{housingresources_name},
+        #{housingresources_category},
+        #{housingresources_village},
+        #{housingresources_type},
+        #{housingresources_introduce},
+        #{housingresources_floor},
+        #{housingresources_orientations},
+        #{housingresources_renttype},
+        #{housingresources_price},
+        #{housingresources_area},
+        #{housingresources_longitude},
+        #{housingresources_latitude},
+        #{housingresources_address},
+        #{housingresources_pic}
+        );
+    </insert>
+
+    <update id="updateHousingresourcesinfo" parameterType="com.rentalhousing.po.Housingresources">
+        UPDATE `housingresources`
+        <set>
+            <if test="housingresources_name != null">
+                housingresources_name = #{housingresources_name},
+            </if>
+            <if test="housingresources_category != null">
+                housingresources_category = #{housingresources_category},
+            </if>
+            <if test="housingresources_village != null">
+                housingresources_village= #{housingresources_village},
+            </if>
+            <if test="housingresources_type != null">
+                housingresources_type = #{housingresources_type},
+            </if>
+            <if test="housingresources_introduce != null">
+                housingresources_introduce = #{housingresources_introduce},
+            </if>
+            <if test="housingresources_floor != null">
+                housingresources_floor = #{housingresources_floor},
+            </if>
+            <if test="housingresources_orientations != null">
+                housingresources_orientations = #{housingresources_orientations},
+            </if>
+            <if test="housingresources_renttype != null">
+                housingresources_renttype = #{housingresources_renttype},
+            </if>
+            <if test="housingresources_price != null">
+                housingresources_price = #{housingresources_price},
+            </if>
+            <if test="housingresources_area != null">
+                housingresources_area = #{housingresources_area},
+            </if>
+            <if test="housingresources_longitude != null">
+                housingresources_longitude = #{housingresources_longitude},
+            </if>
+            <if test="housingresources_latitude != null">
+                housingresources_latitude = #{housingresources_latitude},
+            </if>
+            <if test="housingresources_address != null">
+                housingresources_address = #{housingresources_address},
+            </if>
+            <if test="housingresources_pic != null">
+                housingresources_pic = #{housingresources_pic},
+            </if>
+        </set>
+        WHERE housingresources_id = #{housingresources_id};
+    </update>
+
+    <delete id="delectHousingresources" parameterType="java.lang.Integer">
+        DELETE FROM housingresources WHERE housingresources_id = #{housingresources_id}
+    </delete>
+</mapper>

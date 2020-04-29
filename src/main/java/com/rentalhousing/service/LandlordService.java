@@ -1,6 +1,6 @@
 package com.rentalhousing.service;
 
-import com.rentalhousing.pojo.Landlord;
+import com.rentalhousing.po.Landlord;
 
 import java.util.Map;
 

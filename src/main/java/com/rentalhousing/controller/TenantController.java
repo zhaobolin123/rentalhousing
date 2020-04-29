@@ -1,6 +1,6 @@
 package com.rentalhousing.controller;
 
-import com.rentalhousing.pojo.Tenant;
+import com.rentalhousing.po.Tenant;
 import com.rentalhousing.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class TenantController {
     @Autowired
     private TenantService tenantService;
 
-    //根据id查询房东
+    //根据id查询租客
     @RequestMapping(value = "selectTenantById",method = RequestMethod.POST)
     @ResponseBody
         public Map<String,Object> selectTenantById (Integer tenant_id) throws Exception{
@@ -30,7 +30,7 @@ public class TenantController {
         return map;
     }
 
-    //注册房东
+    //注册租客
     @RequestMapping(value = "registTenant",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> registTenant(Tenant tenant) throws Exception{
@@ -38,7 +38,7 @@ public class TenantController {
         return map;
     }
 
-    //房东登录
+    //租客登录
     @RequestMapping(value = "loginTenant",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> loginTenant(Tenant tenant) throws Exception{
@@ -46,7 +46,7 @@ public class TenantController {
         return map;
     }
 
-    //修改房东信息
+    //修改租客信息
     @RequestMapping(value = "updateTenant",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> updateTenant(Tenant tenant) throws Exception{

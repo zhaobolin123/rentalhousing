@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rentalhousing.mapper.TenantMapper">
 
-    <select id="selectTenantById" resultType="com.rentalhousing.pojo.Tenant">
+    <select id="selectTenantById" resultType="com.rentalhousing.po.Tenant">
         select * from tenant where tenant_id = #{tenant_id};
     </select>
 
-    <insert id="registTenant" parameterType="com.rentalhousing.pojo.Tenant">
+    <insert id="registTenant" parameterType="com.rentalhousing.po.Tenant">
         insert into tenant(tenant_phone,tenant_password,tenant_time,tenant_mail) VALUES (#{tenant_phone},#{tenant_password},#{tenant_time},#{tenant_mail});
     </insert>
 
@@ -14,11 +14,11 @@
         select count(1) from tenant where tenant_phone = #{tenant_phone};
     </select>
 
-    <select id="loginTenant" parameterType="com.rentalhousing.pojo.Tenant" resultType="com.rentalhousing.pojo.Tenant">
+    <select id="loginTenant" parameterType="com.rentalhousing.po.Tenant" resultType="com.rentalhousing.po.Tenant">
       SELECT * from tenant where tenant_phone = #{tenant_phone} and tenant_password=#{tenant_password};
     </select>
 
-    <update id="updateTenant" parameterType="com.rentalhousing.pojo.Tenant">
+    <update id="updateTenant" parameterType="com.rentalhousing.po.Tenant">
         UPDATE tenant
         <set>
             <if test="tenant_nickname != null">

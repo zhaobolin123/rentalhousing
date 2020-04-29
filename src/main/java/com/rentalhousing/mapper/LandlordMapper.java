@@ -1,6 +1,6 @@
 package com.rentalhousing.mapper;
 
-import com.rentalhousing.pojo.Landlord;
+import com.rentalhousing.po.Landlord;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

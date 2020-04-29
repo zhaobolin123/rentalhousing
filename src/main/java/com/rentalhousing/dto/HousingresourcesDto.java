@@ -1,18 +1,8 @@
-package com.rentalhousing.pojo;
+package com.rentalhousing.dto;
 
-import java.util.Date;
-
-/**
- * @Author: 赵博林
- * @Date:2020/4/14 1:20
- * @Description:
- * @Param：
- * @return ：
- */
-
-//房源表
-public class Housingresources {
+public class HousingresourcesDto {
     private Integer housingresources_id;
+    private Integer landlord_id;
     private String housingresources_name;
     private String housingresources_category;
     private String housingresources_village;
@@ -21,12 +11,16 @@ public class Housingresources {
     private String housingresources_floor;
     private String housingresources_orientations;
     private String housingresources_renttype;
-    private String housingresources_price;
+    private Integer housingresources_price;
     private String housingresources_area;
     private String housingresources_longitude;
     private String housingresources_latitude;
     private String housingresources_address;
     private String housingresources_pic;
+    private Integer currIndex;
+    private Integer pageSize;
+    private Integer housingresources_price_min;
+    private Integer housingresources_price_max;
 
     public Integer getHousingresources_id() {
         return housingresources_id;
@@ -34,6 +28,14 @@ public class Housingresources {
 
     public void setHousingresources_id(Integer housingresources_id) {
         this.housingresources_id = housingresources_id;
+    }
+
+    public Integer getLandlord_id() {
+        return landlord_id;
+    }
+
+    public void setLandlord_id(Integer landlord_id) {
+        this.landlord_id = landlord_id;
     }
 
     public String getHousingresources_name() {
@@ -100,11 +102,11 @@ public class Housingresources {
         this.housingresources_renttype = housingresources_renttype;
     }
 
-    public String getHousingresources_price() {
+    public Integer getHousingresources_price() {
         return housingresources_price;
     }
 
-    public void setHousingresources_price(String housingresources_price) {
+    public void setHousingresources_price(Integer housingresources_price) {
         this.housingresources_price = housingresources_price;
     }
 
@@ -146,5 +148,37 @@ public class Housingresources {
 
     public void setHousingresources_pic(String housingresources_pic) {
         this.housingresources_pic = housingresources_pic;
+    }
+
+    public Integer getCurrIndex() {
+        return currIndex;
+    }
+
+    public void setCurrIndex(Integer currIndex) {
+        this.currIndex = currIndex;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getHousingresources_price_min() {
+        return housingresources_price_min;
+    }
+
+    public void setHousingresources_price_min(Integer housingresources_price_min) {
+        this.housingresources_price_min = housingresources_price_min;
+    }
+
+    public Integer getHousingresources_price_max() {
+        return housingresources_price_max;
+    }
+
+    public void setHousingresources_price_max(Integer housingresources_price_max) {
+        this.housingresources_price_max = housingresources_price_max;
     }
 }

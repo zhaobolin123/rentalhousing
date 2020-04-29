@@ -1,7 +1,7 @@
 package com.rentalhousing.service.impl;
 
 import com.rentalhousing.mapper.TenantMapper;
-import com.rentalhousing.pojo.Tenant;
+import com.rentalhousing.po.Tenant;
 import com.rentalhousing.service.TenantService;
 import com.rentalhousing.utils.ResUtil;
 import org.springframework.beans.factory.annotation.Autowired;

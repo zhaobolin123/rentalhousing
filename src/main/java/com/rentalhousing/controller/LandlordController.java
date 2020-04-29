@@ -1,6 +1,6 @@
 package com.rentalhousing.controller;
 
-import com.rentalhousing.pojo.Landlord;
+import com.rentalhousing.po.Landlord;
 import com.rentalhousing.service.LandlordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

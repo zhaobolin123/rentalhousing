@@ -1,4 +1,4 @@
-package com.rentalhousing.pojo;
+package com.rentalhousing.po;
 
 import java.util.Date;
 

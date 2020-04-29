@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rentalhousing.mapper.LandlordMapper">
 
-    <select id="selectById" resultType="com.rentalhousing.pojo.Landlord">
+    <select id="selectById" resultType="com.rentalhousing.po.Landlord">
         select * from landlord where landlord_id = #{landlord_id};
     </select>
 
-    <insert id="registLandlord" parameterType="com.rentalhousing.pojo.Landlord">
+    <insert id="registLandlord" parameterType="com.rentalhousing.po.Landlord">
         insert into landlord(landlord_phone,landlord_password,landlord_time,landlord_mail) VALUES (#{landlord_phone},#{landlord_password},#{landlord_time},#{landlord_mail});
     </insert>
 
@@ -14,11 +14,11 @@
         select count(1) from landlord where landlord_phone = #{landlord_phone};
     </select>
 
-    <select id="loginLandlord" parameterType="com.rentalhousing.pojo.Landlord" resultType="com.rentalhousing.pojo.Landlord">
+    <select id="loginLandlord" parameterType="com.rentalhousing.po.Landlord" resultType="com.rentalhousing.po.Landlord">
       SELECT * from landlord where landlord_phone = #{landlord_phone} and landlord_password=#{landlord_password};
     </select>
 
-    <update id="updateLandlord" parameterType="com.rentalhousing.pojo.Landlord">
+    <update id="updateLandlord" parameterType="com.rentalhousing.po.Landlord">
         UPDATE landlord
         <set>
             <if test="landlord_nickname != null">
