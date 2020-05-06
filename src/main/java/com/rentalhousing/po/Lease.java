@@ -14,7 +14,7 @@ import java.util.Date;
 public class Lease {
     private Integer lease_id;
     private Integer tenant_id;
-    private Integer landlord_id;
+    private Integer housingresources_id;
     private Date lease_time;
     private String lease_type;
 
@@ -34,12 +34,12 @@ public class Lease {
         this.tenant_id = tenant_id;
     }
 
-    public Integer getLandlord_id() {
-        return landlord_id;
+    public Integer getHousingresources_id() {
+        return housingresources_id;
     }
 
-    public void setLandlord_id(Integer landlord_id) {
-        this.landlord_id = landlord_id;
+    public void setHousingresources_id(Integer housingresources_id) {
+        this.housingresources_id = housingresources_id;
     }
 
     public Date getLease_time() {

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rentalhousing.mapper.LeaseMapper">
+
+    <select id="selectLeaseById" resultType="com.rentalhousing.po.Lease">
+        select * from lease where lease_id = #{lease_id};
+    </select>
+
+    <insert id="AddLease" parameterType="com.rentalhousing.po.Lease">
+        insert into lease(tenant_id,housingresources_id,lease_time,lease_type) VALUES (#{tenant_id},#{housingresources_id},#{lease_time},0);
+    </insert>
+
+
+    <select id="selectLeaseListByLandlordId" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Lease">
+      select * from lease where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id})
+    </select>
+
+    <update id="updateLease" parameterType="com.rentalhousing.po.Lease">
+        UPDATE lease
+                lease_type=#{lease_type}
+        where lease_id = #{lease_id};
+    </update>
+
+</mapper>

@@ -25,6 +25,9 @@
             AND housingresources_price > #{housingresources_price_min}
             AND #{housingresources_price_max} > housingresources_price
         </if>
+         <if test="1==1">
+             AND housingresources_state = 0
+        </if>
     </sql>
 
     <select id="selectHousingresourcesList" parameterType="com.rentalhousing.dto.HousingresourcesDto" resultType="com.rentalhousing.po.Housingresources">
@@ -44,7 +47,8 @@
         housingresources_longitude,
         housingresources_latitude,
         housingresources_address,
-        housingresources_pic
+        housingresources_pic,
+        housingresources_state
        from housingresources
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <include refid="HousingresourcesType" />
@@ -72,7 +76,8 @@
         housingresources_longitude,
         housingresources_latitude,
         housingresources_address,
-        housingresources_pic
+        housingresources_pic,
+        housingresources_state
         ) VALUES(
         #{landlord_id},
         #{housingresources_name},
@@ -88,7 +93,8 @@
         #{housingresources_longitude},
         #{housingresources_latitude},
         #{housingresources_address},
-        #{housingresources_pic}
+        #{housingresources_pic},
+        #{housingresources_state}
         );
     </insert>
 
@@ -136,6 +142,9 @@
             </if>
             <if test="housingresources_pic != null">
                 housingresources_pic = #{housingresources_pic},
+            </if>
+            <if test="housingresources_state != null">
+                housingresources_state = #{housingresources_state},
             </if>
         </set>
         WHERE housingresources_id = #{housingresources_id};

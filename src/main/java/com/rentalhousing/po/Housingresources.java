@@ -26,6 +26,7 @@ public class Housingresources {
     private String housingresources_latitude;
     private String housingresources_address;
     private String housingresources_pic;
+    private Integer housingresources_state;
 
     public Integer getLandlord_id() {
         return landlord_id;
@@ -153,5 +154,13 @@ public class Housingresources {
 
     public void setHousingresources_pic(String housingresources_pic) {
         this.housingresources_pic = housingresources_pic;
+    }
+
+    public Integer getHousingresources_state() {
+        return housingresources_state;
+    }
+
+    public void setHousingresources_state(Integer housingresources_state) {
+        this.housingresources_state = housingresources_state;
     }
 }
