@@ -16,7 +16,7 @@ public class Obstacle {
     private Integer tenant_id;
     private Integer housingresources_id;
     private String obstacle_detail;
-    private String obstacle_state;
+    private Integer obstacle_state;
     private Date obstacle_time;
     private Date obstacle_completiontime;
     private String obstacle_pic;
@@ -53,11 +53,11 @@ public class Obstacle {
         this.obstacle_detail = obstacle_detail;
     }
 
-    public String getObstacle_state() {
+    public Integer getObstacle_state() {
         return obstacle_state;
     }
 
-    public void setObstacle_state(String obstacle_state) {
+    public void setObstacle_state(Integer obstacle_state) {
         this.obstacle_state = obstacle_state;
     }
 

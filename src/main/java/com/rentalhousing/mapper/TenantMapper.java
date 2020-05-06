@@ -26,6 +26,6 @@ public interface TenantMapper {
     Tenant loginTenant(Tenant tenant);
 
     //修改个人信息
-    void updateTenant(Tenant tenantTenant);
+    void updateTenant(Tenant tenant);
 
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rentalhousing.mapper.ObstacleMapper">
+
+    <select id="selectObstacleById" resultType="com.rentalhousing.po.Obstacle">
+        select * from obstacle where obstacle_id = #{obstacle_id};
+    </select>
+
+    <insert id="AddObstacle" parameterType="com.rentalhousing.po.Obstacle">
+        insert into obstacle(tenant_id,housingresources_id,obstacle_detail,obstacle_state,obstacle_time,obstacle_pic) VALUES (#{tenant_id},#{housingresources_id},#{obstacle_detail},0,#{obstacle_time},#{obstacle_pic});
+    </insert>
+
+    <select id="selectObstacleListByTenantId" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Obstacle">
+      SELECT * from obstacle where tenant_id = #{tenant_id} ;
+    </select>
+
+    <select id="selectObstacleListByLandlordId" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Obstacle">
+      select * from obstacle where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id})
+    </select>
+
+    <update id="updateObstacle" parameterType="com.rentalhousing.po.Obstacle">
+        UPDATE obstacle
+        <set>
+            <if test="obstacle_detail != null">
+                obstacle_detail=#{obstacle_detail},
+            </if>
+            <if test="obstacle_state != null">
+                obstacle_state=#{obstacle_state},
+            </if>
+            <if test="obstacle_completiontime != null">
+                obstacle_completiontime=#{obstacle_completiontime},
+            </if>
+            <if test="obstacle_pic != null">
+                obstacle_pic=#{obstacle_pic},
+            </if>
+        </set>
+        where obstacle_id = #{obstacle_id};
+    </update>
+
+</mapper>
