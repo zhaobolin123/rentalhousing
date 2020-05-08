@@ -42,16 +42,16 @@ public class ObstacleController {
     //根据租客id查询报障列表
     @RequestMapping(value = "selectObstacleListByTenantId",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> selectObstacleListByTenantId(Integer tenant_id) throws Exception{
-        Map<String,Object> map = obstacleService.selectObstacleListByTenantId(tenant_id);
+    public Map<String,Object> selectObstacleListByTenantId(Integer tenant_id,Integer currIndex, Integer pageSize) throws Exception{
+        Map<String,Object> map = obstacleService.selectObstacleListByTenantId(tenant_id,currIndex,pageSize);
         return map;
     }
 
     //根据房东id查询报障列表
     @RequestMapping(value = "selectObstacleListByLandlordId",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> selectObstacleListByLandlordId(Integer landlord_id) throws Exception{
-        Map<String,Object> map = obstacleService.selectObstacleListByLandlordId(landlord_id);
+    public Map<String,Object> selectObstacleListByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception{
+        Map<String,Object> map = obstacleService.selectObstacleListByLandlordId(landlord_id,currIndex,pageSize);
         return map;
     }
 

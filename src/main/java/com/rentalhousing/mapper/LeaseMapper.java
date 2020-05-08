@@ -4,6 +4,7 @@ import com.rentalhousing.po.Lease;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: 赵博林
@@ -22,7 +23,7 @@ public interface LeaseMapper {
     void AddLease(Lease lease);
 
     //根据房东id查询租赁列表
-    List<Lease> selectLeaseListByLandlordId(Integer landlord_id);
+    List<Lease> selectLeaseListByLandlordId(Map<String,Object> applyMap);
 
     //修改租赁信息
     void updateLease(Lease lease);

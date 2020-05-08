@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rentalhousing.mapper.ApplyMapper">
+
+    <select id="selectApplyById" resultType="com.rentalhousing.po.Apply">
+        select * from apply where apply_id = #{apply_id};
+    </select>
+
+    <insert id="AddApply" parameterType="com.rentalhousing.po.Apply">
+        insert into apply(tenant_id,housingresources_id,apply_type,apply_time,apply_remake,apply_liaison,apply_contact,apply_state) VALUES (#{tenant_id},#{housingresources_id},#{apply_type},#{apply_time},#{apply_remake},#{apply_liaison},#{apply_contact},0);
+    </insert>
+
+    <select id="selectApplyListByTenantId" parameterType="map" resultType="com.rentalhousing.po.Apply">
+      SELECT * from apply where tenant_id = #{tenant_id} limit #{currIndex},#{pageSize};
+    </select>
+
+    <select id="selectApplyListByLandlordId" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Apply">
+      select * from apply where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id}) limit #{currIndex},#{pageSize};
+    </select>
+
+    <update id="updateApply" parameterType="com.rentalhousing.po.Apply">
+        UPDATE apply
+        <set>
+            <if test="apply_time != null">
+                apply_time=#{apply_time},
+            </if>
+            <if test="apply_remake != null">
+                apply_remake=#{apply_remake},
+            </if>
+            <if test="apply_liaison != null">
+                apply_liaison=#{apply_liaison},
+            </if>
+            <if test="apply_contact != null">
+                apply_contact=#{apply_contact},
+            </if>
+            <if test="apply_state != null">
+                apply_state=#{apply_state},
+            </if>
+        </set>
+        where apply_id = #{apply_id};
+    </update>
+
+</mapper>

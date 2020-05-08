@@ -22,10 +22,10 @@ public interface ObstacleService {
     Map<String,Object> AddObstacle(Obstacle obstacle) throws Exception;
 
     //根据租客id查询报障列表
-    Map<String,Object> selectObstacleListByTenantId(Integer tenant_id) throws Exception;
+    Map<String,Object> selectObstacleListByTenantId(Integer tenant_id,Integer currIndex, Integer pageSize) throws Exception;
 
     //根据房东id查询报障列表
-    Map<String,Object> selectObstacleListByLandlordId(Integer landlord_id) throws Exception;
+    Map<String,Object> selectObstacleListByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception;
 
     //修改报障信息
     Map<String,Object> updateObstacle(Obstacle obstacle) throws Exception;

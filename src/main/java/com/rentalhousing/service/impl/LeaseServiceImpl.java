@@ -74,16 +74,20 @@ public class LeaseServiceImpl implements LeaseService {
 
     //根据房东id查询租赁列表
     @Override
-    public Map<String, Object> selectLeaseListByLandlordId(Integer landlord_id) throws Exception {
+    public Map<String, Object> selectLeaseListByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception {
         Map<String,Object> map = new HashMap<>();
         List<Lease> leaseList = new ArrayList<Lease>();
+        Map<String,Object> applyMap = new HashMap<>();
+        applyMap.put("landlord_id",landlord_id);
+        applyMap.put("currIndex",(currIndex-1)*pageSize);
+        applyMap.put("pageSize",pageSize);
 
         if (StringUtils.isEmpty(landlord_id) || Objects.equals("",landlord_id)) {
             return ResUtil.error(map,"001","传入参数不能为空!");
         }
         else{
             try {
-                leaseList = leaseMapper.selectLeaseListByLandlordId(landlord_id);
+                leaseList = leaseMapper.selectLeaseListByLandlordId(applyMap);
                 map.put("leaseList",leaseList);
             } catch (Exception e) {
                 e.printStackTrace();

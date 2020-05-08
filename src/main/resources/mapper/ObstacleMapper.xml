@@ -10,12 +10,12 @@
         insert into obstacle(tenant_id,housingresources_id,obstacle_detail,obstacle_state,obstacle_time,obstacle_pic) VALUES (#{tenant_id},#{housingresources_id},#{obstacle_detail},0,#{obstacle_time},#{obstacle_pic});
     </insert>
 
-    <select id="selectObstacleListByTenantId" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Obstacle">
-      SELECT * from obstacle where tenant_id = #{tenant_id} ;
+    <select id="selectObstacleListByTenantId" parameterType="map" resultType="com.rentalhousing.po.Obstacle">
+      SELECT * from obstacle where tenant_id = #{tenant_id} limit #{currIndex},#{pageSize};
     </select>
 
-    <select id="selectObstacleListByLandlordId" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Obstacle">
-      select * from obstacle where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id})
+    <select id="selectObstacleListByLandlordId" parameterType="map" resultType="com.rentalhousing.po.Obstacle">
+      select * from obstacle where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id}) limit #{currIndex},#{pageSize};
     </select>
 
     <update id="updateObstacle" parameterType="com.rentalhousing.po.Obstacle">

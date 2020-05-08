@@ -4,6 +4,7 @@ import com.rentalhousing.po.Obstacle;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: 赵博林
@@ -22,10 +23,10 @@ public interface ObstacleMapper {
     void AddObstacle(Obstacle obstacle);
 
     //根据租客id查询报障列表
-    List<Obstacle> selectObstacleListByTenantId(Integer tenant_id);
+    List<Obstacle> selectObstacleListByTenantId(Map<String,Object> applyMap);
 
     //根据房东id查询报障列表
-    List<Obstacle> selectObstacleListByLandlordId(Integer landlord_id);
+    List<Obstacle> selectObstacleListByLandlordId(Map<String,Object> applyMap);
 
     //修改报障信息
     void updateObstacle(Obstacle obstacle);

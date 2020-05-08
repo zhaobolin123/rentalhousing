@@ -76,16 +76,20 @@ public class ObstacleServiceImpl implements ObstacleService {
 
     //根据租客id查询报障列表
         @Override
-        public Map<String, Object> selectObstacleListByTenantId(Integer tenant_id) throws Exception {
+        public Map<String, Object> selectObstacleListByTenantId(Integer tenant_id,Integer currIndex, Integer pageSize) throws Exception {
             Map<String,Object> map = new HashMap<>();
             List<Obstacle> obstacleList = new ArrayList<Obstacle>();
+            Map<String,Object> applyMap = new HashMap<>();
+            applyMap.put("tenant_id",tenant_id);
+            applyMap.put("currIndex",(currIndex-1)*pageSize);
+            applyMap.put("pageSize",pageSize);
 
             if (StringUtils.isEmpty(tenant_id) || Objects.equals("",tenant_id)) {
                 return ResUtil.error(map,"001","传入参数不能为空!");
             }
             else{
                 try {
-                    obstacleList = obstacleMapper.selectObstacleListByTenantId(tenant_id);
+                    obstacleList = obstacleMapper.selectObstacleListByTenantId(applyMap);
                     map.put("obstacleList",obstacleList);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -97,16 +101,20 @@ public class ObstacleServiceImpl implements ObstacleService {
 
     //根据房东id查询报障列表
     @Override
-    public Map<String, Object> selectObstacleListByLandlordId(Integer landlord_id) throws Exception {
+    public Map<String, Object> selectObstacleListByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception {
         Map<String,Object> map = new HashMap<>();
         List<Obstacle> obstacleList = new ArrayList<Obstacle>();
+        Map<String,Object> applyMap = new HashMap<>();
+        applyMap.put("landlord_id",landlord_id);
+        applyMap.put("currIndex",(currIndex-1)*pageSize);
+        applyMap.put("pageSize",pageSize);
 
         if (StringUtils.isEmpty(landlord_id) || Objects.equals("",landlord_id)) {
             return ResUtil.error(map,"001","传入参数不能为空!");
         }
         else{
             try {
-                obstacleList = obstacleMapper.selectObstacleListByLandlordId(landlord_id);
+                obstacleList = obstacleMapper.selectObstacleListByLandlordId(applyMap);
                 map.put("obstacleList",obstacleList);
             } catch (Exception e) {
                 e.printStackTrace();

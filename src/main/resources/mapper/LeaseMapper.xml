@@ -11,8 +11,8 @@
     </insert>
 
 
-    <select id="selectLeaseListByLandlordId" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Lease">
-      select * from lease where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id})
+    <select id="selectLeaseListByLandlordId" parameterType="map" resultType="com.rentalhousing.po.Lease">
+      select * from lease where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id}) limit #{currIndex},#{pageSize};
     </select>
 
     <update id="updateLease" parameterType="com.rentalhousing.po.Lease">
