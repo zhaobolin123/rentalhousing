@@ -11,15 +11,31 @@
     </insert>
 
     <select id="selectApplyListByTenantId" parameterType="map" resultType="com.rentalhousing.po.Apply">
-      SELECT * from apply where tenant_id = #{tenant_id} limit #{currIndex},#{pageSize};
-    </select>
-
-    <select id="selectApplyListByType" parameterType="map" resultType="com.rentalhousing.po.Apply">
-      SELECT * from apply where apply_type = #{apply_type} limit #{currIndex},#{pageSize};
+      SELECT * from apply where tenant_id = #{tenant_id}
+      and apply_type = #{apply_type}
+        and apply_state = #{apply_state}
+       limit #{currIndex},#{pageSize};
     </select>
 
     <select id="selectApplyListByLandlordId" parameterType="map" resultType="com.rentalhousing.po.Apply">
-      select * from apply where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id}) limit #{currIndex},#{pageSize};
+      select * from apply where housingresources_id in
+      (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id})
+      and apply_type = #{apply_type}
+        and apply_state = #{apply_state}
+      limit #{currIndex},#{pageSize};
+    </select>
+
+    <select id="selectApplyListByTenantIdCount" parameterType="map" resultType="java.lang.Integer">
+      SELECT count(*) from apply where tenant_id = #{tenant_id}
+      and apply_type = #{apply_type}
+        and apply_state = #{apply_state}
+    </select>
+
+    <select id="selectApplyListByLandlordIdCount" parameterType="map" resultType="java.lang.Integer">
+      select count(*) from apply where housingresources_id in
+      (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id})
+      and apply_type = #{apply_type}
+        and apply_state = #{apply_state}
     </select>
 
     <update id="updateApply" parameterType="com.rentalhousing.po.Apply">

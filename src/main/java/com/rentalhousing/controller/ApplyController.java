@@ -42,24 +42,16 @@ public class ApplyController {
     //根据租客id查询申请列表
     @RequestMapping(value = "selectApplyListByTenantId",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> selectApplyListByTenantId(Integer tenant_id,Integer currIndex, Integer pageSize) throws Exception{
-        Map<String,Object> map = applyService.selectApplyListByTenantId(tenant_id,currIndex,pageSize);
-        return map;
-    }
-
-    //根据申请类型查询申请列表
-    @RequestMapping(value = "selectApplyListByType",method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String,Object> selectApplyListByType(Integer apply_type,Integer currIndex, Integer pageSize) throws Exception{
-        Map<String,Object> map = applyService.selectApplyListByType(apply_type,currIndex,pageSize);
+    public Map<String,Object> selectApplyListByTenantId(Integer tenant_id,Integer apply_type,Integer apply_state,Integer currIndex, Integer pageSize) throws Exception{
+        Map<String,Object> map = applyService.selectApplyListByTenantId(tenant_id,apply_type,apply_state,currIndex,pageSize);
         return map;
     }
 
     //根据房东id查询申请列表
     @RequestMapping(value = "selectApplyListByLandlordId",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> selectApplyListByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception{
-        Map<String,Object> map = applyService.selectApplyListByLandlordId(landlord_id,currIndex,pageSize);
+    public Map<String,Object> selectApplyListByLandlordId(Integer landlord_id,Integer apply_type,Integer apply_state,Integer currIndex, Integer pageSize) throws Exception{
+        Map<String,Object> map = applyService.selectApplyListByLandlordId(landlord_id,apply_type,apply_state,currIndex,pageSize);
         return map;
     }
 

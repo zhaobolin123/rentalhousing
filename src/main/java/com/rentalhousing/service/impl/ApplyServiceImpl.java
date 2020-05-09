@@ -74,11 +74,13 @@ public class ApplyServiceImpl implements ApplyService {
 
     //根据租客id查询申请列表
         @Override
-        public Map<String, Object> selectApplyListByTenantId(Integer tenant_id,Integer currIndex, Integer pageSize) throws Exception {
+        public Map<String, Object> selectApplyListByTenantId(Integer tenant_id,Integer apply_type,Integer apply_state,Integer currIndex, Integer pageSize) throws Exception {
             Map<String,Object> map = new HashMap<>();
             List<Apply> applyList = new ArrayList<Apply>();
             Map<String,Object> applyMap = new HashMap<>();
             applyMap.put("tenant_id",tenant_id);
+            applyMap.put("apply_type",apply_type);
+            applyMap.put("apply_state",apply_state);
             applyMap.put("currIndex",(currIndex-1)*pageSize);
             applyMap.put("pageSize",pageSize);
 
@@ -88,6 +90,8 @@ public class ApplyServiceImpl implements ApplyService {
             else{
                 try {
                     applyList = applyMapper.selectApplyListByTenantId(applyMap);
+                    Integer count = applyMapper.selectApplyListByTenantIdCount(applyMap);
+                    map.put("count",count);
                     map.put("applyList",applyList);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -97,38 +101,15 @@ public class ApplyServiceImpl implements ApplyService {
             return ResUtil.error(map,"000",ResUtil.SUCCESS);
     }
 
-    //根据申请类型查询申请列表
-    @Override
-    public Map<String, Object> selectApplyListByType(Integer apply_type,Integer currIndex, Integer pageSize) throws Exception {
-        Map<String,Object> map = new HashMap<>();
-        List<Apply> applyList = new ArrayList<Apply>();
-        Map<String,Object> applyMap = new HashMap<>();
-        applyMap.put("apply_type",apply_type);
-        applyMap.put("currIndex",(currIndex-1)*pageSize);
-        applyMap.put("pageSize",pageSize);
-
-        if (StringUtils.isEmpty(apply_type) || Objects.equals("",apply_type)) {
-            return ResUtil.error(map,"001","传入参数不能为空!");
-        }
-        else{
-            try {
-                applyList = applyMapper.selectApplyListByType(applyMap);
-                map.put("applyList",applyList);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return ResUtil.error(map,"005","异常,请联系管理员！");
-            }
-        }
-        return ResUtil.error(map,"000",ResUtil.SUCCESS);
-    }
-
     //根据房东id查询申请列表
     @Override
-    public Map<String, Object> selectApplyListByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception {
+    public Map<String, Object> selectApplyListByLandlordId(Integer landlord_id,Integer apply_type,Integer apply_state,Integer currIndex, Integer pageSize) throws Exception {
         Map<String,Object> map = new HashMap<>();
         List<Apply> applyList = new ArrayList<Apply>();
         Map<String,Object> applyMap = new HashMap<>();
         applyMap.put("landlord_id",landlord_id);
+        applyMap.put("apply_type",apply_type);
+        applyMap.put("apply_state",apply_state);
         applyMap.put("currIndex",(currIndex-1)*pageSize);
         applyMap.put("pageSize",pageSize);
 
@@ -138,6 +119,8 @@ public class ApplyServiceImpl implements ApplyService {
         else{
             try {
                 applyList = applyMapper.selectApplyListByLandlordId(applyMap);
+                Integer count = applyMapper.selectApplyListByLandlordIdCount(applyMap);
+                map.put("count",count);
                 map.put("applyList",applyList);
             } catch (Exception e) {
                 e.printStackTrace();

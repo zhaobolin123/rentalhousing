@@ -20,13 +20,10 @@ public interface ApplyService {
     Map<String,Object> AddApply(Apply apply) throws Exception;
 
     //根据租客id查询申请列表
-    Map<String,Object> selectApplyListByTenantId(Integer tenant_id,Integer currIndex, Integer pageSize) throws Exception;
-
-    //根据申请类型查询申请列表
-    Map<String,Object> selectApplyListByType(Integer apply_type,Integer currIndex, Integer pageSize) throws Exception;
+    Map<String,Object> selectApplyListByTenantId(Integer tenant_id,Integer apply_type,Integer apply_state,Integer currIndex, Integer pageSize) throws Exception;
 
     //根据房东id查询申请列表
-    Map<String,Object> selectApplyListByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception;
+    Map<String,Object> selectApplyListByLandlordId(Integer landlord_id,Integer apply_type,Integer apply_state,Integer currIndex, Integer pageSize) throws Exception;
 
     //修改申请信息
     Map<String,Object> updateApply(Apply apply) throws Exception;
