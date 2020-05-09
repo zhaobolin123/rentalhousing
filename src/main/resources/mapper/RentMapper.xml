@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rentalhousing.mapper.RentMapper">
+
+    <select id="selectRentById" resultType="com.rentalhousing.po.Rent">
+        select * from rent where rent_id = #{rent_id};
+    </select>
+
+    <insert id="AddRent" parameterType="com.rentalhousing.po.Rent">
+        insert into rent(landlord_id,tenant_id,rent_price,rent_time,rent_endtime,rent_type) VALUES (#{landlord_id},#{tenant_id},#{rent_price},#{rent_time},#{rent_endtime},0);
+    </insert>
+
+    <select id="selectRentListByTenantId" parameterType="map" resultType="com.rentalhousing.po.Rent">
+      SELECT * from rent where tenant_id = #{tenant_id} and rent_type = #{rent_type} limit #{currIndex},#{pageSize};
+    </select>
+
+    <select id="selectRentListByLandlordId" parameterType="map" resultType="com.rentalhousing.po.Rent">
+     SELECT * from rent where landlord_id = #{landlord_id} and rent_type = #{rent_type} limit #{currIndex},#{pageSize};
+    </select>
+
+    <update id="updateRent" parameterType="com.rentalhousing.po.Rent">
+        UPDATE rent
+        <set>
+            <if test="rent_price != null">
+                rent_price=#{rent_price},
+            </if>
+            <if test="rent_time != null">
+                rent_time=#{rent_time},
+            </if>
+            <if test="rent_endtime != null">
+                rent_endtime=#{rent_endtime},
+            </if>
+            <if test="rent_type != null">
+                rent_type=#{rent_type},
+            </if>
+        </set>
+        where rent_id = #{rent_id};
+    </update>
+
+</mapper>

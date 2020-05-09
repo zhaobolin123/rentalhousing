@@ -15,7 +15,7 @@ public class Apply {
     private Integer apply_id;
     private Integer tenant_id;
     private Integer housingresources_id;
-    private String apply_type;
+    private Integer apply_type;
     private Date apply_time;
     private String apply_remake;
     private String apply_liaison;
@@ -46,11 +46,11 @@ public class Apply {
         this.housingresources_id = housingresources_id;
     }
 
-    public String getApply_type() {
+    public Integer getApply_type() {
         return apply_type;
     }
 
-    public void setApply_type(String apply_type) {
+    public void setApply_type(Integer apply_type) {
         this.apply_type = apply_type;
     }
 

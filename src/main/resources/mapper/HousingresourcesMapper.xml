@@ -60,6 +60,9 @@
       SELECT * from housingresources where housingresources_id = #{housingresources_id}
     </select>
 
+    <select id="selectHousingresourcesByLandlordId" parameterType="map" resultType="com.rentalhousing.po.Housingresources">
+        SELECT * from housingresources where landlord_id = #{landlord_id} limit #{currIndex},#{pageSize}
+    </select>
     <insert id="addHousingresources" parameterType="com.rentalhousing.po.Housingresources">
         insert into housingresources (
         landlord_id,

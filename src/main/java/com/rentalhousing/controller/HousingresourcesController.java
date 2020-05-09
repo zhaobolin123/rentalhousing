@@ -39,6 +39,14 @@ public class HousingresourcesController {
         return map;
     }
 
+    //根据房东id查询房源列表
+    @RequestMapping(value = "selectHousingresourcesByLandlordId",method = RequestMethod.POST)
+    @ResponseBody
+        public Map<String,Object> selectHousingresourcesByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception{
+        Map<String,Object> map = housingresourcesService.selectHousingresourcesByLandlordId(landlord_id,currIndex,pageSize);
+        return map;
+    }
+
     //添加房源
     @RequestMapping(value = "addHousingresources",method = RequestMethod.POST)
     @ResponseBody

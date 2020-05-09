@@ -47,6 +47,14 @@ public class ApplyController {
         return map;
     }
 
+    //根据申请类型查询申请列表
+    @RequestMapping(value = "selectApplyListByType",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> selectApplyListByType(Integer apply_type,Integer currIndex, Integer pageSize) throws Exception{
+        Map<String,Object> map = applyService.selectApplyListByType(apply_type,currIndex,pageSize);
+        return map;
+    }
+
     //根据房东id查询申请列表
     @RequestMapping(value = "selectApplyListByLandlordId",method = RequestMethod.POST)
     @ResponseBody

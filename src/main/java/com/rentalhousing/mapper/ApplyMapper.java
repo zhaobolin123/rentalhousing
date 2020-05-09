@@ -25,6 +25,9 @@ public interface ApplyMapper {
     //根据租客id查询申请列表
     List<Apply> selectApplyListByTenantId(Map<String,Object> applyMap);
 
+    //根据申请类型查询申请列表
+    List<Apply> selectApplyListByType(Map<String,Object> applyMap);
+
     //根据房东id查询申请列表
     List<Apply> selectApplyListByLandlordId(Map<String,Object> applyMap);
 

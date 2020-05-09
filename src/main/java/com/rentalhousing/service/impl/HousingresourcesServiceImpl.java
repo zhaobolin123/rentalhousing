@@ -73,6 +73,32 @@ public class HousingresourcesServiceImpl implements HousingresourcesService {
         return ResUtil.error(map,"000",ResUtil.SUCCESS);
     }
 
+    //根据房东查询房源列表
+    @Override
+    public Map<String, Object> selectHousingresourcesByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        List<Housingresources> housingresourceslist;
+        Map<String,Object> HousingresourcesMap = new HashMap<>();
+        HousingresourcesMap.put("landlord_id",landlord_id);
+        HousingresourcesMap.put("currIndex",(currIndex-1)*pageSize);
+        HousingresourcesMap.put("pageSize",pageSize);
+
+        if (StringUtils.isEmpty(landlord_id) || Objects.equals("", landlord_id)) {
+            return ResUtil.error(map,"001","传入参数不能为空!");
+        }
+        else{
+            try {
+                housingresourceslist = housingresourcesMapper.selectHousingresourcesByLandlordId(HousingresourcesMap);
+                map.put("housingresourceslist",housingresourceslist);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResUtil.error(map,"005","异常,请联系管理员！");
+            }
+        }
+        return ResUtil.error(map,"000",ResUtil.SUCCESS);
+    }
+
+
     //添加房源
     @Override
     public Map<String, Object> addHousingresources(Housingresources housingresources) throws Exception {

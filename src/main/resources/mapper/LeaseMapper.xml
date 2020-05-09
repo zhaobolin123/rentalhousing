@@ -12,7 +12,7 @@
 
 
     <select id="selectLeaseListByLandlordId" parameterType="map" resultType="com.rentalhousing.po.Lease">
-      select * from lease where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id}) limit #{currIndex},#{pageSize};
+      select * from lease where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id}) and lease_type in (#{lease_type},#{lease_type2}) limit #{currIndex},#{pageSize};
     </select>
 
     <update id="updateLease" parameterType="com.rentalhousing.po.Lease">

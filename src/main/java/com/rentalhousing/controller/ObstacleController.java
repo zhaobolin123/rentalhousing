@@ -50,8 +50,8 @@ public class ObstacleController {
     //根据房东id查询报障列表
     @RequestMapping(value = "selectObstacleListByLandlordId",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> selectObstacleListByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception{
-        Map<String,Object> map = obstacleService.selectObstacleListByLandlordId(landlord_id,currIndex,pageSize);
+    public Map<String,Object> selectObstacleListByLandlordId(Integer landlord_id,Integer obstacle_state,Integer currIndex, Integer pageSize) throws Exception{
+        Map<String,Object> map = obstacleService.selectObstacleListByLandlordId(landlord_id,obstacle_state,currIndex,pageSize);
         return map;
     }
 

@@ -101,7 +101,7 @@ public class ObstacleServiceImpl implements ObstacleService {
 
     //根据房东id查询报障列表
     @Override
-    public Map<String, Object> selectObstacleListByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception {
+    public Map<String, Object> selectObstacleListByLandlordId(Integer landlord_id,Integer obstacle_state,Integer currIndex, Integer pageSize) throws Exception {
         Map<String,Object> map = new HashMap<>();
         List<Obstacle> obstacleList = new ArrayList<Obstacle>();
         Map<String,Object> applyMap = new HashMap<>();
@@ -112,8 +112,18 @@ public class ObstacleServiceImpl implements ObstacleService {
         if (StringUtils.isEmpty(landlord_id) || Objects.equals("",landlord_id)) {
             return ResUtil.error(map,"001","传入参数不能为空!");
         }
+        else if(StringUtils.isEmpty(obstacle_state) || Objects.equals("",obstacle_state)) {
+            return ResUtil.error(map,"001","传入参数不能为空!");
+        }
         else{
             try {
+                if(0==obstacle_state){
+                    applyMap.put("obstacle_state",0);
+                    applyMap.put("obstacle_state2",0);
+                }else{
+                    applyMap.put("obstacle_state",1);
+                    applyMap.put("obstacle_state2",2);
+                }
                 obstacleList = obstacleMapper.selectObstacleListByLandlordId(applyMap);
                 map.put("obstacleList",obstacleList);
             } catch (Exception e) {

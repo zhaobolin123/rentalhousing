@@ -5,6 +5,7 @@ import com.rentalhousing.dto.HousingresourcesDto;
 import com.rentalhousing.po.Housingresources;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 * Author: 赵博林
@@ -20,6 +21,9 @@ public interface HousingresourcesMapper {
 
     //根据条件查询房源列表
     List<Housingresources> selectHousingresourcesList(HousingresourcesDto dto);
+
+    //根据房东id查询房源列表
+    List<Housingresources> selectHousingresourcesByLandlordId(Map<String,Object> HousingresourcesMap);
 
     //添加房源
     void addHousingresources(Housingresources housingresources);

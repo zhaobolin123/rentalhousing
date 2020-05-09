@@ -16,7 +16,7 @@ public class Rent {
     private String landlord_id;
     private String tenant_id;
     private String rent_price;
-    private Date rent_time;
+    private String rent_time;
     private Date rent_endtime;
     private Integer rent_type;
 
@@ -52,11 +52,11 @@ public class Rent {
         this.rent_price = rent_price;
     }
 
-    public Date getRent_time() {
+    public String getRent_time() {
         return rent_time;
     }
 
-    public void setRent_time(Date rent_time) {
+    public void setRent_time(String rent_time) {
         this.rent_time = rent_time;
     }
 

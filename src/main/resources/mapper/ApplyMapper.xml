@@ -14,7 +14,11 @@
       SELECT * from apply where tenant_id = #{tenant_id} limit #{currIndex},#{pageSize};
     </select>
 
-    <select id="selectApplyListByLandlordId" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Apply">
+    <select id="selectApplyListByType" parameterType="map" resultType="com.rentalhousing.po.Apply">
+      SELECT * from apply where apply_type = #{apply_type} limit #{currIndex},#{pageSize};
+    </select>
+
+    <select id="selectApplyListByLandlordId" parameterType="map" resultType="com.rentalhousing.po.Apply">
       select * from apply where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id}) limit #{currIndex},#{pageSize};
     </select>
 
