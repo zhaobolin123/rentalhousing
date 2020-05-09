@@ -16,10 +16,10 @@ public class Contract {
     private Integer tenant_id;
     private Integer landlord_id;
     private Integer housingresources_id;
-    private String lease_type;
+    private String housingresources_renttype;
     private String contract_price;
-    private Date contract_begintime;
-    private Date contract_endtime;
+    private String contract_begintime;
+    private String contract_endtime;
 
     public Integer getContract_id() {
         return contract_id;
@@ -53,12 +53,12 @@ public class Contract {
         this.housingresources_id = housingresources_id;
     }
 
-    public String getLease_type() {
-        return lease_type;
+    public String getHousingresources_renttype() {
+        return housingresources_renttype;
     }
 
-    public void setLease_type(String lease_type) {
-        this.lease_type = lease_type;
+    public void setHousingresources_renttype(String housingresources_renttype) {
+        this.housingresources_renttype = housingresources_renttype;
     }
 
     public String getContract_price() {
@@ -69,19 +69,19 @@ public class Contract {
         this.contract_price = contract_price;
     }
 
-    public Date getContract_begintime() {
+    public String getContract_begintime() {
         return contract_begintime;
     }
 
-    public void setContract_begintime(Date contract_begintime) {
+    public void setContract_begintime(String contract_begintime) {
         this.contract_begintime = contract_begintime;
     }
 
-    public Date getContract_endtime() {
+    public String getContract_endtime() {
         return contract_endtime;
     }
 
-    public void setContract_endtime(Date contract_endtime) {
+    public void setContract_endtime(String contract_endtime) {
         this.contract_endtime = contract_endtime;
     }
 }

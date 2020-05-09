@@ -1,6 +1,8 @@
 package com.rentalhousing.service.impl;
 
+import com.rentalhousing.mapper.HousingresourcesMapper;
 import com.rentalhousing.mapper.LeaseMapper;
+import com.rentalhousing.po.Housingresources;
 import com.rentalhousing.po.Lease;
 import com.rentalhousing.service.LeaseService;
 import com.rentalhousing.utils.ResUtil;
@@ -24,6 +26,8 @@ public class LeaseServiceImpl implements LeaseService {
 
     @Autowired
     private LeaseMapper leaseMapper;
+    @Autowired
+    private HousingresourcesMapper housingresourcesMapper;
 
     //根据id查询租赁
     @Override
@@ -49,6 +53,7 @@ public class LeaseServiceImpl implements LeaseService {
     @Override
     public Map<String, Object> AddLease(Lease lease) throws Exception {
         Map<String,Object> map = new HashMap<>();
+        Housingresources housingresources = new Housingresources();
 
         if (StringUtils.isEmpty(lease.getTenant_id()) || Objects.equals("", lease.getTenant_id())) {
             return ResUtil.error(map,"001","传入参数不能为空!");
@@ -62,8 +67,10 @@ public class LeaseServiceImpl implements LeaseService {
                 String nowdayTime = dateFormat.format(new Date());
                 Date nowDate = dateFormat.parse(nowdayTime);
                 lease.setLease_time(nowDate);
-
+                housingresources.setHousingresources_id(lease.getHousingresources_id());
+                housingresources.setHousingresources_state(1);
                 leaseMapper.AddLease(lease);
+                housingresourcesMapper.updateHousingresourcesinfo(housingresources);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResUtil.error(map,"005","异常,请联系管理员！");
@@ -79,6 +86,7 @@ public class LeaseServiceImpl implements LeaseService {
         List<Lease> leaseList = new ArrayList<Lease>();
         Map<String,Object> applyMap = new HashMap<>();
         applyMap.put("landlord_id",landlord_id);
+        applyMap.put("lease_type",lease_type);
         applyMap.put("currIndex",(currIndex-1)*pageSize);
         applyMap.put("pageSize",pageSize);
 
@@ -90,13 +98,6 @@ public class LeaseServiceImpl implements LeaseService {
         }
         else{
             try {
-                if("0".equals(lease_type)){
-                    applyMap.put("lease_type",0);
-                    applyMap.put("lease_type2",0);
-                }else{
-                    applyMap.put("lease_type",1);
-                    applyMap.put("lease_type2",2);
-                }
                 leaseList = leaseMapper.selectLeaseListByLandlordId(applyMap);
                 map.put("leaseList",leaseList);
             } catch (Exception e) {
@@ -107,20 +108,24 @@ public class LeaseServiceImpl implements LeaseService {
         return ResUtil.error(map,"000",ResUtil.SUCCESS);
     }
 
-    //修改租赁信息
+    //退房
     @Override
     public Map<String, Object> updateLease(Lease lease) throws Exception {
         Map<String,Object> map = new HashMap<>();
+        Housingresources housingresources = new Housingresources();
 
         if (StringUtils.isEmpty(lease.getLease_id()) || Objects.equals("",lease.getLease_id())) {
-            return ResUtil.error(map,"001","传入id不能为空!");
+            return ResUtil.error(map,"001","传入参数不能为空!");
         }
-        else  if (StringUtils.isEmpty(lease.getLease_type()) || Objects.equals("",lease.getLease_type())) {
-            return ResUtil.error(map,"001","传入id不能为空!");
+        else if (StringUtils.isEmpty(lease.getHousingresources_id()) || Objects.equals("",lease.getHousingresources_id())) {
+            return ResUtil.error(map,"001","传入参数不能为空!");
         }
         else{
             try {
-                leaseMapper.updateLease(lease);
+                housingresources.setHousingresources_id(lease.getHousingresources_id());
+                housingresources.setHousingresources_state(0);
+                leaseMapper.updateLease(lease.getLease_id());
+                housingresourcesMapper.updateHousingresourcesinfo(housingresources);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResUtil.error(map,"005","异常,请联系管理员！");

@@ -26,6 +26,6 @@ public interface LeaseMapper {
     List<Lease> selectLeaseListByLandlordId(Map<String,Object> applyMap);
 
     //修改租赁信息
-    void updateLease(Lease lease);
+    void updateLease(Integer lease_id);
 
 }
