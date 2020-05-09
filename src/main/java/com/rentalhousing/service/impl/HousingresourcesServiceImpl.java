@@ -64,6 +64,8 @@ public class HousingresourcesServiceImpl implements HousingresourcesService {
             try {
                 dto.setCurrIndex((dto.getCurrIndex()-1)*dto.getPageSize());
                 housingresourceslist = housingresourcesMapper.selectHousingresourcesList(dto);
+                Integer count = housingresourcesMapper.selectHousingresourcesListCount(dto);
+                map.put("count",count);
                 map.put("housingresourceslist",housingresourceslist);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -75,11 +77,12 @@ public class HousingresourcesServiceImpl implements HousingresourcesService {
 
     //根据房东查询房源列表
     @Override
-    public Map<String, Object> selectHousingresourcesByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception {
+    public Map<String, Object> selectHousingresourcesByLandlordId(Integer landlord_id,String housingresources_name,Integer currIndex, Integer pageSize) throws Exception {
         Map<String,Object> map = new HashMap<>();
         List<Housingresources> housingresourceslist;
         Map<String,Object> HousingresourcesMap = new HashMap<>();
         HousingresourcesMap.put("landlord_id",landlord_id);
+        HousingresourcesMap.put("housingresources_name",housingresources_name);
         HousingresourcesMap.put("currIndex",(currIndex-1)*pageSize);
         HousingresourcesMap.put("pageSize",pageSize);
 
@@ -89,6 +92,8 @@ public class HousingresourcesServiceImpl implements HousingresourcesService {
         else{
             try {
                 housingresourceslist = housingresourcesMapper.selectHousingresourcesByLandlordId(HousingresourcesMap);
+                Integer count = housingresourcesMapper.selectHousingresourcesByLandlordIdCount(HousingresourcesMap);
+                map.put("count",count);
                 map.put("housingresourceslist",housingresourceslist);
             } catch (Exception e) {
                 e.printStackTrace();

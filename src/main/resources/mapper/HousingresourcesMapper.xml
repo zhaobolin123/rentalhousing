@@ -56,13 +56,43 @@
         limit #{currIndex},#{pageSize}
     </select>
 
+    <select id="selectHousingresourcesListCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT count(*)
+        from housingresources
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <include refid="HousingresourcesType" />
+        </trim>
+    </select>
+
     <select id="selectHousingresourcesById" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Housingresources">
       SELECT * from housingresources where housingresources_id = #{housingresources_id}
     </select>
 
-    <select id="selectHousingresourcesByLandlordId" parameterType="map" resultType="com.rentalhousing.po.Housingresources">
-        SELECT * from housingresources where landlord_id = #{landlord_id} limit #{currIndex},#{pageSize}
+    <select id="selectHousingresourcesByLandlordIdCount" parameterType="map" resultType="java.lang.Integer">
+        SELECT count(*) from housingresources
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="housingresources_name!=null and housingresources_name!=''">
+                AND housingresources_name like "%"#{housingresources_name}"%"
+            </if>
+            <if test="1==1">
+                AND landlord_id = #{landlord_id}
+            </if>
+        </trim>
     </select>
+
+    <select id="selectHousingresourcesByLandlordId" parameterType="map" resultType="com.rentalhousing.po.Housingresources">
+        SELECT * from housingresources
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="housingresources_name!=null and housingresources_name!=''">
+                AND housingresources_name like "%"#{housingresources_name}"%"
+            </if>
+            <if test="1==1">
+                AND landlord_id = #{landlord_id}
+            </if>
+        </trim>
+        limit #{currIndex},#{pageSize}
+    </select>
+
     <insert id="addHousingresources" parameterType="com.rentalhousing.po.Housingresources">
         insert into housingresources (
         landlord_id,

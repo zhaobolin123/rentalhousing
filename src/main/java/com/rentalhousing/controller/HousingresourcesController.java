@@ -42,8 +42,8 @@ public class HousingresourcesController {
     //根据房东id查询房源列表
     @RequestMapping(value = "selectHousingresourcesByLandlordId",method = RequestMethod.POST)
     @ResponseBody
-        public Map<String,Object> selectHousingresourcesByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize) throws Exception{
-        Map<String,Object> map = housingresourcesService.selectHousingresourcesByLandlordId(landlord_id,currIndex,pageSize);
+        public Map<String,Object> selectHousingresourcesByLandlordId(Integer landlord_id,String housingresources_name,Integer currIndex, Integer pageSize) throws Exception{
+        Map<String,Object> map = housingresourcesService.selectHousingresourcesByLandlordId(landlord_id,housingresources_name,currIndex,pageSize);
         return map;
     }
 

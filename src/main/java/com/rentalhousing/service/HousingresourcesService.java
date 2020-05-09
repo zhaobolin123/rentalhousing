@@ -21,7 +21,7 @@ public interface HousingresourcesService {
     Map<String,Object> selectHousingresourcesList(HousingresourcesDto dto) throws Exception;
 
     //根据房东id查询房源列表
-    Map<String,Object> selectHousingresourcesByLandlordId(Integer landlord_id,Integer currIndex, Integer pageSize)throws Exception;
+    Map<String,Object> selectHousingresourcesByLandlordId(Integer landlord_id,String housingresources_name,Integer currIndex, Integer pageSize)throws Exception;
 
     //添加房源
     Map<String,Object> addHousingresources(Housingresources housingresources) throws Exception;
