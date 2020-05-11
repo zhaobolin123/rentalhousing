@@ -53,4 +53,20 @@ public class TenantController {
         Map<String,Object> map = tenantService.updateTenant(tenant);
         return map;
     }
+
+    //判断昵名是否唯一
+    @RequestMapping(value = "isNickName",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> isNickName(String tenant_nickname) throws Exception{
+        Map<String,Object> map = tenantService.isNickName(tenant_nickname);
+        return map;
+    }
+
+    //根据昵名查询租客列表
+    @RequestMapping(value = "selectTenantByNickName",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> selectTenantByNickName(String tenant_nickname) throws Exception{
+        Map<String,Object> map = tenantService.selectTenantByNickName(tenant_nickname);
+        return map;
+    }
 }

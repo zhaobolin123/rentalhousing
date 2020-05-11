@@ -3,6 +3,7 @@ package com.rentalhousing.service.impl;
 import com.rentalhousing.mapper.TenantMapper;
 import com.rentalhousing.po.Tenant;
 import com.rentalhousing.service.TenantService;
+import com.rentalhousing.utils.NickName;
 import com.rentalhousing.utils.ResUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,7 @@ import org.springframework.util.StringUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @Author: 赵博林
@@ -29,7 +27,7 @@ public class TenantServiceImpl implements TenantService {
     @Autowired
     private TenantMapper tenantMapper;
 
-    //根据id查询房东
+    //根据id查询租客
     @Override
     public Map<String, Object> selectTenantById(Integer tenant_id) throws Exception {
         Map<String,Object> map = new HashMap<>();
@@ -72,6 +70,7 @@ public class TenantServiceImpl implements TenantService {
                 String nowdayTime = dateFormat.format(new Date());
                 Date nowDate = dateFormat.parse(nowdayTime);
                 tenant.setTenant_time(nowDate);
+                tenant.setTenant_nickname(NickName.generateName());
 
                 tenantMapper.registTenant(tenant);
             } catch (Exception e) {
@@ -110,7 +109,7 @@ public class TenantServiceImpl implements TenantService {
         return ResUtil.error(map,"000",ResUtil.SUCCESS);
     }
 
-    //修改房东信息
+    //修改租客信息
     @Override
     @Transactional
     public Map<String, Object> updateTenant(Tenant tenant) throws Exception {
@@ -124,6 +123,49 @@ public class TenantServiceImpl implements TenantService {
                 tenantMapper.updateTenant(tenant);
                 Tenant tenant1 = tenantMapper.selectTenantById(tenant.getTenant_id());
                 map.put("Tenant",tenant1);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResUtil.error(map,"005","异常,请联系管理员！");
+            }
+        }
+        return ResUtil.error(map,"000",ResUtil.SUCCESS);
+    }
+
+    //判断昵名是否唯一
+    @Override
+    @Transactional
+    public Map<String, Object> isNickName(String tenant_nickname) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+
+        if (StringUtils.isEmpty(tenant_nickname) || Objects.equals("",tenant_nickname)) {
+            return ResUtil.error(map,"001","传入参数不能为空!");
+        }
+        else{
+            try {
+                Integer count = tenantMapper.isNickName(tenant_nickname);
+                map.put("count",count);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResUtil.error(map,"005","异常,请联系管理员！");
+            }
+        }
+        return ResUtil.error(map,"000",ResUtil.SUCCESS);
+    }
+
+    //根据昵名查询租客列表
+    @Override
+    @Transactional
+    public Map<String, Object> selectTenantByNickName(String tenant_nickname) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        List<Tenant> tenantList = new ArrayList<>();
+
+        if (StringUtils.isEmpty(tenant_nickname) || Objects.equals("",tenant_nickname)) {
+            return ResUtil.error(map,"001","传入id不能为空!");
+        }
+        else{
+            try {
+                tenantList = tenantMapper.selectTenantByNickName(tenant_nickname);
+                map.put("tenantList",tenantList);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResUtil.error(map,"005","异常,请联系管理员！");

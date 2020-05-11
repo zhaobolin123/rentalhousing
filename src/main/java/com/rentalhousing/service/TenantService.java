@@ -24,4 +24,10 @@ public interface TenantService {
 
     //修改租客信息
     Map<String,Object> updateTenant(Tenant tenant) throws Exception;
+
+    //判断昵名是否唯一
+    Map<String,Object> isNickName(String tenant_nickname) throws Exception;
+
+    //根据昵名查询租客列表
+    Map<String,Object> selectTenantByNickName(String tenant_nickname) throws Exception;
 }

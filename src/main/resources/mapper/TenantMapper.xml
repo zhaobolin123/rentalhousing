@@ -7,7 +7,7 @@
     </select>
 
     <insert id="registTenant" parameterType="com.rentalhousing.po.Tenant">
-        insert into tenant(tenant_phone,tenant_password,tenant_time,tenant_mail) VALUES (#{tenant_phone},#{tenant_password},#{tenant_time},#{tenant_mail});
+        insert into tenant(tenant_phone,tenant_password,tenant_time,tenant_mail,tenant_nickname) VALUES (#{tenant_phone},#{tenant_password},#{tenant_time},#{tenant_mail},#{tenant_nickname});
     </insert>
 
     <select id="isTenantRegist" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -16,6 +16,14 @@
 
     <select id="loginTenant" parameterType="com.rentalhousing.po.Tenant" resultType="com.rentalhousing.po.Tenant">
       SELECT * from tenant where tenant_phone = #{tenant_phone} and tenant_password=#{tenant_password};
+    </select>
+
+    <select id="isNickName" parameterType="java.lang.String" resultType="java.lang.Integer">
+         select count(*) from tenant where tenant_nickname = #{tenant_nickname}
+    </select>
+
+    <select id="selectTenantByNickName" parameterType="java.lang.String" resultType="com.rentalhousing.po.Tenant">
+         select * from tenant where tenant_nickname like "%"#{tenant_nickname}"%"
     </select>
 
     <update id="updateTenant" parameterType="com.rentalhousing.po.Tenant">
