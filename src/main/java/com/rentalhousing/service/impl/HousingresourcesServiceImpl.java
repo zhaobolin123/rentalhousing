@@ -2,7 +2,9 @@ package com.rentalhousing.service.impl;
 
 import com.rentalhousing.dto.HousingresourcesDto;
 import com.rentalhousing.mapper.HousingresourcesMapper;
+import com.rentalhousing.mapper.LandlordMapper;
 import com.rentalhousing.po.Housingresources;
+import com.rentalhousing.po.Landlord;
 import com.rentalhousing.service.HousingresourcesService;
 import com.rentalhousing.utils.ResUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class HousingresourcesServiceImpl implements HousingresourcesService {
     @Autowired
     private HousingresourcesMapper housingresourcesMapper;
 
+    @Autowired
+    private LandlordMapper landlordMapper;
+
     //根据房源id查询房源
     @Override
     public Map<String, Object> selectHousingresourcesById(Integer housingresources_id) throws Exception {
@@ -39,7 +44,9 @@ public class HousingresourcesServiceImpl implements HousingresourcesService {
         else{
             try {
                 housingresources = housingresourcesMapper.selectHousingresourcesById(housingresources_id);
+                Landlord landlord = landlordMapper.selectById(housingresources.getLandlord_id());
                 map.put("housingresources",housingresources);
+                map.put("landlord",landlord);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResUtil.error(map,"005","异常,请联系管理员！");

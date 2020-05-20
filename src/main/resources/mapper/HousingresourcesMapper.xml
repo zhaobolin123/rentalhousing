@@ -21,7 +21,7 @@
         <if test="housingresources_renttype!=null and housingresources_renttype!=''">
             AND housingresources_renttype = #{housingresources_renttype}
         </if>
-        <if test="housingresources_price!=null and housingresources_price!=''">
+        <if test="housingresources_price_min!=null and housingresources_price_max!=null">
             AND housingresources_price > #{housingresources_price_min}
             AND #{housingresources_price_max} > housingresources_price
         </if>
