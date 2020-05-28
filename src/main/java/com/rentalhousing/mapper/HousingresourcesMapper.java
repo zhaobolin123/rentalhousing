@@ -28,6 +28,9 @@ public interface HousingresourcesMapper {
     //根据房东id查询房源列表
     List<Housingresources> selectHousingresourcesByLandlordId(Map<String,Object> HousingresourcesMap);
 
+    //根据租客id查询房源列表
+    List<Housingresources> selectHousingresourcesByTenantId(Integer tenant_id);
+
     //根据房东id查询房源列表总数
     Integer selectHousingresourcesByLandlordIdCount(Map<String,Object> HousingresourcesMap);
 

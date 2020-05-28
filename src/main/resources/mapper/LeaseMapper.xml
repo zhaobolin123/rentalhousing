@@ -15,6 +15,9 @@
       select * from lease where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id}) and lease_type = #{lease_type} limit #{currIndex},#{pageSize};
     </select>
 
+    <select id="selectLeaseListByTenantId" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Lease">
+        select * from lease where tenant_id = #{tenant_id};
+    </select>
     <update id="updateLease" parameterType="com.rentalhousing.po.Lease">
         UPDATE lease set
                 lease_type=1

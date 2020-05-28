@@ -93,6 +93,9 @@
         limit #{currIndex},#{pageSize}
     </select>
 
+    <select id="selectHousingresourcesByTenantId" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Housingresources">
+        select * from housingresources where housingresources_id in (select housingresources_id from lease where tenant_id = #{tenant_id})
+    </select>
     <insert id="addHousingresources" parameterType="com.rentalhousing.po.Housingresources">
         insert into housingresources (
         landlord_id,

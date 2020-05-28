@@ -108,6 +108,27 @@ public class LeaseServiceImpl implements LeaseService {
         return ResUtil.error(map,"000",ResUtil.SUCCESS);
     }
 
+    //根据租客id查询租赁列表
+    @Override
+    public Map<String, Object> selectLeaseListByTenantId(Integer tenant_id) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        List<Lease> leaseList = new ArrayList<Lease>();
+
+        if (StringUtils.isEmpty(tenant_id) || Objects.equals("",tenant_id)) {
+            return ResUtil.error(map,"001","传入参数不能为空!");
+        }
+        else{
+            try {
+                leaseList = leaseMapper.selectLeaseListByTenantId(tenant_id);
+                map.put("leaseList",leaseList);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResUtil.error(map,"005","异常,请联系管理员！");
+            }
+        }
+        return ResUtil.error(map,"000",ResUtil.SUCCESS);
+    }
+
     //退房
     @Override
     public Map<String, Object> updateLease(Lease lease) throws Exception {

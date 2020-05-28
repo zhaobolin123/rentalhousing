@@ -46,6 +46,14 @@ public class LeaseController {
         return map;
     }
 
+    //根据租客id查询租赁列表
+    @RequestMapping(value = "selectLeaseListByTenantId",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> selectLeaseListByTenantId(Integer tenant_id) throws Exception{
+        Map<String,Object> map = leaseService.selectLeaseListByTenantId(tenant_id);
+        return map;
+    }
+
     //修改租赁信息
     @RequestMapping(value = "updateLease",method = RequestMethod.POST)
     @ResponseBody

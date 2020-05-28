@@ -23,6 +23,9 @@ public interface HousingresourcesService {
     //根据房东id查询房源列表
     Map<String,Object> selectHousingresourcesByLandlordId(Integer landlord_id,String housingresources_name,Integer currIndex, Integer pageSize)throws Exception;
 
+    //根据租客id查询房源列表
+    Map<String,Object> selectHousingresourcesByTenantId(Integer tenant_id)throws Exception;
+
     //添加房源
     Map<String,Object> addHousingresources(Housingresources housingresources) throws Exception;
 

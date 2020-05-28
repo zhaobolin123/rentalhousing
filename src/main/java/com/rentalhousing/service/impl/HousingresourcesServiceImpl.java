@@ -110,6 +110,27 @@ public class HousingresourcesServiceImpl implements HousingresourcesService {
         return ResUtil.error(map,"000",ResUtil.SUCCESS);
     }
 
+    //根据租客id查询房源列表
+    @Override
+    public Map<String, Object> selectHousingresourcesByTenantId(Integer tenant_id) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        List<Housingresources> housingresourceslist;
+
+        if (StringUtils.isEmpty(tenant_id) || Objects.equals("", tenant_id)) {
+            return ResUtil.error(map,"001","传入参数不能为空!");
+        }
+        else{
+            try {
+                housingresourceslist = housingresourcesMapper.selectHousingresourcesByTenantId(tenant_id);
+                map.put("housingresourceslist",housingresourceslist);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResUtil.error(map,"005","异常,请联系管理员！");
+            }
+        }
+        return ResUtil.error(map,"000",ResUtil.SUCCESS);
+    }
+
 
     //添加房源
     @Override
