@@ -130,7 +130,7 @@
         #{housingresources_latitude},
         #{housingresources_address},
         #{housingresources_pic},
-        #{housingresources_state}
+        0
         );
     </insert>
 
