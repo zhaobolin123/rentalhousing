@@ -1,9 +1,13 @@
 package com.rentalhousing.service.impl;
 
 import com.rentalhousing.mapper.HousingresourcesMapper;
+import com.rentalhousing.mapper.LandlordMapper;
 import com.rentalhousing.mapper.LeaseMapper;
+import com.rentalhousing.mapper.TenantMapper;
 import com.rentalhousing.po.Housingresources;
+import com.rentalhousing.po.Landlord;
 import com.rentalhousing.po.Lease;
+import com.rentalhousing.po.Tenant;
 import com.rentalhousing.service.LeaseService;
 import com.rentalhousing.utils.ResUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,10 @@ public class LeaseServiceImpl implements LeaseService {
     private LeaseMapper leaseMapper;
     @Autowired
     private HousingresourcesMapper housingresourcesMapper;
+    @Autowired
+    private LandlordMapper landlordMapper;
+    @Autowired
+    private TenantMapper tenantMapper;
 
     //根据id查询租赁
     @Override
@@ -85,6 +93,8 @@ public class LeaseServiceImpl implements LeaseService {
         Map<String,Object> map = new HashMap<>();
         List<Lease> leaseList = new ArrayList<Lease>();
         Map<String,Object> applyMap = new HashMap<>();
+        Map<String,Object> leaseInfoMap = new HashMap<>();
+        ArrayList leaseInfoList = new ArrayList<>();
         applyMap.put("landlord_id",landlord_id);
         applyMap.put("lease_type",lease_type);
         applyMap.put("currIndex",(currIndex-1)*pageSize);
@@ -99,7 +109,19 @@ public class LeaseServiceImpl implements LeaseService {
         else{
             try {
                 leaseList = leaseMapper.selectLeaseListByLandlordId(applyMap);
-                map.put("leaseList",leaseList);
+                if(leaseList != null) {
+                    for (Lease lease : leaseList) {
+                        leaseInfoMap.clear();
+                        leaseInfoMap.put("lease", lease);
+                        Tenant tenant = tenantMapper.selectTenantById(lease.getTenant_id());
+                        leaseInfoMap.put("tenant", tenant);
+                        Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(lease.getHousingresources_id());
+                        Landlord landlord = landlordMapper.selectById(housingresources.getLandlord_id());
+                        leaseInfoMap.put("landlord", landlord);
+                        leaseInfoList.add(leaseInfoMap);
+                    }
+                }
+                map.put("leaseInfoList",leaseInfoList);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResUtil.error(map,"005","异常,请联系管理员！");
@@ -113,6 +135,8 @@ public class LeaseServiceImpl implements LeaseService {
     public Map<String, Object> selectLeaseListByTenantId(Integer tenant_id) throws Exception {
         Map<String,Object> map = new HashMap<>();
         List<Lease> leaseList = new ArrayList<Lease>();
+        Map<String,Object> leaseInfoMap = new HashMap<>();
+        ArrayList leaseInfoList = new ArrayList<>();
 
         if (StringUtils.isEmpty(tenant_id) || Objects.equals("",tenant_id)) {
             return ResUtil.error(map,"001","传入参数不能为空!");
@@ -120,7 +144,19 @@ public class LeaseServiceImpl implements LeaseService {
         else{
             try {
                 leaseList = leaseMapper.selectLeaseListByTenantId(tenant_id);
-                map.put("leaseList",leaseList);
+                if(leaseList != null) {
+                    for (Lease lease : leaseList) {
+                        leaseInfoMap.clear();
+                        leaseInfoMap.put("lease", lease);
+                        Tenant tenant = tenantMapper.selectTenantById(tenant_id);
+                        leaseInfoMap.put("tenant", tenant);
+                        Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(lease.getHousingresources_id());
+                        Landlord landlord = landlordMapper.selectById(housingresources.getLandlord_id());
+                        leaseInfoMap.put("landlord", landlord);
+                        leaseInfoList.add(leaseInfoMap);
+                    }
+                }
+                map.put("leaseInfoList",leaseInfoList);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResUtil.error(map,"005","异常,请联系管理员！");

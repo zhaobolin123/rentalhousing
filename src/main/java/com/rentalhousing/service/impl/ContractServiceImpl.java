@@ -1,7 +1,11 @@
 package com.rentalhousing.service.impl;
 
 import com.rentalhousing.mapper.ContractMapper;
+import com.rentalhousing.mapper.LandlordMapper;
+import com.rentalhousing.mapper.TenantMapper;
 import com.rentalhousing.po.Contract;
+import com.rentalhousing.po.Landlord;
+import com.rentalhousing.po.Tenant;
 import com.rentalhousing.service.ContractService;
 import com.rentalhousing.utils.ResUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,10 @@ public class ContractServiceImpl implements ContractService {
 
     @Autowired
     private ContractMapper contractMapper;
+    @Autowired
+    private TenantMapper tenantMapper;
+    @Autowired
+    private LandlordMapper landlordMapper;
 
     //根据id查询合同
     @Override
@@ -76,6 +84,8 @@ public class ContractServiceImpl implements ContractService {
         Map<String,Object> map = new HashMap<>();
         List<Contract> contractList = new ArrayList<Contract>();
         Map<String,Object> applyMap = new HashMap<>();
+        Map<String,Object> contractInfoMap = new HashMap<>();
+        ArrayList contractInfoList = new ArrayList<>();
         applyMap.put("currIndex",(currIndex-1)*pageSize);
         applyMap.put("pageSize",pageSize);
         applyMap.put("landlord_id",landlord_id);
@@ -87,8 +97,19 @@ public class ContractServiceImpl implements ContractService {
             try {
                 contractList = contractMapper.selectContractListByLandlordId(applyMap);
                 Integer count = contractMapper.selectContractListByLandlordIdCount(applyMap);
+                if(contractList != null) {
+                    for (Contract contract : contractList) {
+                        contractInfoMap.clear();
+                        contractInfoMap.put("contract", contract);
+                        Tenant tenant = tenantMapper.selectTenantById(contract.getTenant_id());
+                        contractInfoMap.put("tenant", tenant);
+                        Landlord landlord = landlordMapper.selectById(contract.getLandlord_id());
+                        contractInfoMap.put("landlord", landlord);
+                        contractInfoList.add(contractInfoMap);
+                    }
+                }
                 map.put("count",count);
-                map.put("contractList",contractList);
+                map.put("contractInfoList",contractInfoList);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResUtil.error(map,"005","异常,请联系管理员！");
