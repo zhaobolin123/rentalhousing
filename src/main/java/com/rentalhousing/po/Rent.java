@@ -13,8 +13,8 @@ import java.util.Date;
 //租金表
 public class Rent {
     private Integer rent_id;
-    private String landlord_id;
-    private String tenant_id;
+    private Integer landlord_id;
+    private Integer tenant_id;
     private String rent_price;
     private String rent_time;
     private Date rent_endtime;
@@ -28,19 +28,19 @@ public class Rent {
         this.rent_id = rent_id;
     }
 
-    public String getLandlord_id() {
+    public Integer getLandlord_id() {
         return landlord_id;
     }
 
-    public void setLandlord_id(String landlord_id) {
+    public void setLandlord_id(Integer landlord_id) {
         this.landlord_id = landlord_id;
     }
 
-    public String getTenant_id() {
+    public Integer getTenant_id() {
         return tenant_id;
     }
 
-    public void setTenant_id(String tenant_id) {
+    public void setTenant_id(Integer tenant_id) {
         this.tenant_id = tenant_id;
     }
 

@@ -1,7 +1,13 @@
 package com.rentalhousing.service.impl;
 
+import com.rentalhousing.mapper.HousingresourcesMapper;
+import com.rentalhousing.mapper.LandlordMapper;
 import com.rentalhousing.mapper.RentMapper;
+import com.rentalhousing.mapper.TenantMapper;
+import com.rentalhousing.po.Housingresources;
+import com.rentalhousing.po.Landlord;
 import com.rentalhousing.po.Rent;
+import com.rentalhousing.po.Tenant;
 import com.rentalhousing.service.RentService;
 import com.rentalhousing.utils.ResUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +30,12 @@ public class RentServiceImpl implements RentService {
 
     @Autowired
     private RentMapper rentMapper;
+    @Autowired
+    private LandlordMapper landlordMapper;
+    @Autowired
+    private TenantMapper tenantMapper;
+    @Autowired
+    private HousingresourcesMapper housingresourcesMapper;
 
     //根据id查询租金
     @Override
@@ -73,6 +85,8 @@ public class RentServiceImpl implements RentService {
             Map<String,Object> map = new HashMap<>();
             List<Rent> rentList = new ArrayList<Rent>();
             Map<String,Object> rentMap = new HashMap<>();
+            Map<String,Object> rentInfoMap = new HashMap<>();
+            ArrayList rentInfoList = new ArrayList<>();
             rentMap.put("tenant_id",tenant_id);
             rentMap.put("rent_type",rent_type);
             rentMap.put("currIndex",(currIndex-1)*pageSize);
@@ -84,7 +98,20 @@ public class RentServiceImpl implements RentService {
             else{
                 try {
                     rentList = rentMapper.selectRentListByTenantId(rentMap);
-                    map.put("rentList",rentList);
+                    Integer count = rentMapper.selectRentListByTenantIdCount(rentMap);
+                    if(rentList != null) {
+                        for (Rent rent : rentList) {
+                            rentInfoMap.clear();
+                            rentInfoMap.put("rent", rent);
+                            Tenant tenant = tenantMapper.selectTenantById(tenant_id);
+                            rentInfoMap.put("tenant", tenant);
+                            Landlord landlord = landlordMapper.selectById(rent.getLandlord_id());
+                            rentInfoMap.put("landlord", landlord);
+                            rentInfoList.add(rentInfoMap);
+                        }
+                    }
+                    map.put("count",count);
+                    map.put("rentInfoList",rentInfoList);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return ResUtil.error(map,"005","异常,请联系管理员！");
@@ -99,6 +126,8 @@ public class RentServiceImpl implements RentService {
         Map<String,Object> map = new HashMap<>();
         List<Rent> rentList = new ArrayList<Rent>();
         Map<String,Object> rentMap = new HashMap<>();
+        Map<String,Object> rentInfoMap = new HashMap<>();
+        ArrayList rentInfoList = new ArrayList<>();
         rentMap.put("landlord_id",landlord_id);
         rentMap.put("rent_type",rent_type);
         rentMap.put("currIndex",(currIndex-1)*pageSize);
@@ -110,7 +139,20 @@ public class RentServiceImpl implements RentService {
         else{
             try {
                 rentList = rentMapper.selectRentListByLandlordId(rentMap);
-                map.put("rentList",rentList);
+                Integer count = rentMapper.selectRentListByLandlordIdCount(rentMap);
+                if(rentList != null) {
+                    for (Rent rent : rentList) {
+                        rentInfoMap.clear();
+                        rentInfoMap.put("rent", rent);
+                        Tenant tenant = tenantMapper.selectTenantById(rent.getTenant_id());
+                        rentInfoMap.put("tenant", tenant);
+                        Landlord landlord = landlordMapper.selectById(landlord_id);
+                        rentInfoMap.put("landlord", landlord);
+                        rentInfoList.add(rentInfoMap);
+                    }
+                }
+                map.put("count",count);
+                map.put("rentInfoList",rentInfoList);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResUtil.error(map,"005","异常,请联系管理员！");

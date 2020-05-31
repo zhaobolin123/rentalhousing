@@ -28,6 +28,12 @@ public interface ObstacleMapper {
     //根据房东id查询报障列表
     List<Obstacle> selectObstacleListByLandlordId(Map<String,Object> applyMap);
 
+    //根据租客id查询报障列表总数
+    Integer selectObstacleListByTenantIdCount(Map<String,Object> applyMap);
+
+    //根据房东id查询报障列表总数
+    Integer selectObstacleListByLandlordIdCount(Map<String,Object> applyMap);
+
     //修改报障信息
     void updateObstacle(Obstacle obstacle);
 

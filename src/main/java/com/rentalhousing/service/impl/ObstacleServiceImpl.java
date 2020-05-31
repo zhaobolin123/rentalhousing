@@ -1,6 +1,11 @@
 package com.rentalhousing.service.impl;
 
+import com.rentalhousing.mapper.HousingresourcesMapper;
+import com.rentalhousing.mapper.LandlordMapper;
 import com.rentalhousing.mapper.ObstacleMapper;
+import com.rentalhousing.mapper.TenantMapper;
+import com.rentalhousing.po.Housingresources;
+import com.rentalhousing.po.Landlord;
 import com.rentalhousing.po.Obstacle;
 import com.rentalhousing.po.Tenant;
 import com.rentalhousing.service.ObstacleService;
@@ -26,6 +31,12 @@ public class ObstacleServiceImpl implements ObstacleService {
 
     @Autowired
     private ObstacleMapper obstacleMapper;
+    @Autowired
+    private HousingresourcesMapper housingresourcesMapper;
+    @Autowired
+    private LandlordMapper landlordMapper;
+    @Autowired
+    private TenantMapper tenantMapper;
 
     //根据id查询报障
     @Override
@@ -80,6 +91,8 @@ public class ObstacleServiceImpl implements ObstacleService {
             Map<String,Object> map = new HashMap<>();
             List<Obstacle> obstacleList = new ArrayList<Obstacle>();
             Map<String,Object> applyMap = new HashMap<>();
+            Map<String,Object> obstacleInfoMap = new HashMap<>();
+            ArrayList obstacleInfoList = new ArrayList<>();
             applyMap.put("tenant_id",tenant_id);
             applyMap.put("currIndex",(currIndex-1)*pageSize);
             applyMap.put("pageSize",pageSize);
@@ -90,7 +103,21 @@ public class ObstacleServiceImpl implements ObstacleService {
             else{
                 try {
                     obstacleList = obstacleMapper.selectObstacleListByTenantId(applyMap);
-                    map.put("obstacleList",obstacleList);
+                    Integer count = obstacleMapper.selectObstacleListByTenantIdCount(applyMap);
+                    if(obstacleList != null) {
+                        for (Obstacle obstacle : obstacleList) {
+                            obstacleInfoMap.clear();
+                            obstacleInfoMap.put("obstacle", obstacle);
+                            Tenant tenant = tenantMapper.selectTenantById(tenant_id);
+                            obstacleInfoMap.put("tenant", tenant);
+                            Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(obstacle.getHousingresources_id());
+                            Landlord landlord = landlordMapper.selectById(housingresources.getLandlord_id());
+                            obstacleInfoMap.put("landlord", landlord);
+                            obstacleInfoList.add(obstacleInfoMap);
+                        }
+                    }
+                    map.put("count",count);
+                    map.put("obstacleInfoList",obstacleInfoList);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return ResUtil.error(map,"005","异常,请联系管理员！");
@@ -105,6 +132,8 @@ public class ObstacleServiceImpl implements ObstacleService {
         Map<String,Object> map = new HashMap<>();
         List<Obstacle> obstacleList = new ArrayList<Obstacle>();
         Map<String,Object> applyMap = new HashMap<>();
+        Map<String,Object> obstacleInfoMap = new HashMap<>();
+        ArrayList obstacleInfoList = new ArrayList<>();
         applyMap.put("landlord_id",landlord_id);
         applyMap.put("currIndex",(currIndex-1)*pageSize);
         applyMap.put("pageSize",pageSize);
@@ -125,7 +154,20 @@ public class ObstacleServiceImpl implements ObstacleService {
                     applyMap.put("obstacle_state2",2);
                 }
                 obstacleList = obstacleMapper.selectObstacleListByLandlordId(applyMap);
-                map.put("obstacleList",obstacleList);
+                Integer count = obstacleMapper.selectObstacleListByLandlordIdCount(applyMap);
+                if(obstacleList != null) {
+                    for (Obstacle obstacle : obstacleList) {
+                        obstacleInfoMap.clear();
+                        obstacleInfoMap.put("obstacle", obstacle);
+                        Tenant tenant = tenantMapper.selectTenantById(obstacle.getTenant_id());
+                        obstacleInfoMap.put("tenant", tenant);
+                        Landlord landlord = landlordMapper.selectById(landlord_id);
+                        obstacleInfoMap.put("landlord", landlord);
+                        obstacleInfoList.add(obstacleInfoMap);
+                    }
+                }
+                map.put("count",count);
+                map.put("obstacleInfoList",obstacleInfoList);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResUtil.error(map,"005","异常,请联系管理员！");

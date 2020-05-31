@@ -28,6 +28,12 @@ public interface RentMapper {
     //根据房东id查询租金列表
     List<Rent> selectRentListByLandlordId(Map<String, Object> rentMap);
 
+    //根据租客id查询租金列表总数
+    Integer selectRentListByTenantIdCount(Map<String,Object> applyMap);
+
+    //根据房东id查询租金列表总数
+    Integer selectRentListByLandlordIdCount(Map<String,Object> applyMap);
+
     //修改租金信息
     void updateRent(Rent rent);
 

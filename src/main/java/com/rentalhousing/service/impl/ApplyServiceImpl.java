@@ -1,7 +1,13 @@
 package com.rentalhousing.service.impl;
 
 import com.rentalhousing.mapper.ApplyMapper;
+import com.rentalhousing.mapper.HousingresourcesMapper;
+import com.rentalhousing.mapper.LandlordMapper;
+import com.rentalhousing.mapper.TenantMapper;
 import com.rentalhousing.po.Apply;
+import com.rentalhousing.po.Housingresources;
+import com.rentalhousing.po.Landlord;
+import com.rentalhousing.po.Tenant;
 import com.rentalhousing.service.ApplyService;
 import com.rentalhousing.utils.ResUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +30,12 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Autowired
     private ApplyMapper applyMapper;
+    @Autowired
+    private LandlordMapper landlordMapper;
+    @Autowired
+    private TenantMapper tenantMapper;
+    @Autowired
+    private HousingresourcesMapper housingresourcesMapper;
 
     //根据id查询申请
     @Override
@@ -78,6 +90,8 @@ public class ApplyServiceImpl implements ApplyService {
             Map<String,Object> map = new HashMap<>();
             List<Apply> applyList = new ArrayList<Apply>();
             Map<String,Object> applyMap = new HashMap<>();
+            Map<String,Object> applyInfoMap = new HashMap<>();
+            ArrayList applyInfoList = new ArrayList<>();
             applyMap.put("tenant_id",tenant_id);
             applyMap.put("apply_type",apply_type);
             applyMap.put("apply_state",apply_state);
@@ -91,8 +105,20 @@ public class ApplyServiceImpl implements ApplyService {
                 try {
                     applyList = applyMapper.selectApplyListByTenantId(applyMap);
                     Integer count = applyMapper.selectApplyListByTenantIdCount(applyMap);
+                    if(applyList != null) {
+                        for (Apply apply : applyList) {
+                            applyInfoMap.clear();
+                            applyInfoMap.put("apply", apply);
+                            Tenant tenant = tenantMapper.selectTenantById(tenant_id);
+                            applyInfoMap.put("tenant", tenant);
+                            Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(apply.getHousingresources_id());
+                            Landlord landlord = landlordMapper.selectById(housingresources.getLandlord_id());
+                            applyInfoMap.put("landlord", landlord);
+                            applyInfoList.add(applyInfoMap);
+                        }
+                    }
                     map.put("count",count);
-                    map.put("applyList",applyList);
+                    map.put("applyInfoList",applyInfoList);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return ResUtil.error(map,"005","异常,请联系管理员！");
@@ -107,6 +133,8 @@ public class ApplyServiceImpl implements ApplyService {
         Map<String,Object> map = new HashMap<>();
         List<Apply> applyList = new ArrayList<Apply>();
         Map<String,Object> applyMap = new HashMap<>();
+        Map<String,Object> applyInfoMap = new HashMap<>();
+        ArrayList applyInfoList = new ArrayList<>();
         applyMap.put("landlord_id",landlord_id);
         applyMap.put("apply_type",apply_type);
         applyMap.put("apply_state",apply_state);
@@ -120,8 +148,19 @@ public class ApplyServiceImpl implements ApplyService {
             try {
                 applyList = applyMapper.selectApplyListByLandlordId(applyMap);
                 Integer count = applyMapper.selectApplyListByLandlordIdCount(applyMap);
+                if(applyList != null) {
+                    for (Apply apply : applyList) {
+                        applyInfoMap.clear();
+                        applyInfoMap.put("apply", apply);
+                        Tenant tenant = tenantMapper.selectTenantById(apply.getTenant_id());
+                        applyInfoMap.put("tenant", tenant);
+                        Landlord landlord = landlordMapper.selectById(landlord_id);
+                        applyInfoMap.put("landlord", landlord);
+                        applyInfoList.add(applyInfoMap);
+                    }
+                }
                 map.put("count",count);
-                map.put("applyList",applyList);
+                map.put("applyInfoList",applyInfoList);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResUtil.error(map,"005","异常,请联系管理员！");
