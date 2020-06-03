@@ -85,7 +85,6 @@ public class RentServiceImpl implements RentService {
             Map<String,Object> map = new HashMap<>();
             List<Rent> rentList = new ArrayList<Rent>();
             Map<String,Object> rentMap = new HashMap<>();
-            Map<String,Object> rentInfoMap = new HashMap<>();
             ArrayList rentInfoList = new ArrayList<>();
             rentMap.put("tenant_id",tenant_id);
             rentMap.put("rent_type",rent_type);
@@ -101,6 +100,7 @@ public class RentServiceImpl implements RentService {
                     Integer count = rentMapper.selectRentListByTenantIdCount(rentMap);
                     if(rentList != null) {
                         for (Rent rent : rentList) {
+                            Map<String,Object> rentInfoMap = new HashMap<>();
                             rentInfoMap.clear();
                             rentInfoMap.put("rent", rent);
                             Tenant tenant = tenantMapper.selectTenantById(tenant_id);
@@ -126,7 +126,6 @@ public class RentServiceImpl implements RentService {
         Map<String,Object> map = new HashMap<>();
         List<Rent> rentList = new ArrayList<Rent>();
         Map<String,Object> rentMap = new HashMap<>();
-        Map<String,Object> rentInfoMap = new HashMap<>();
         ArrayList rentInfoList = new ArrayList<>();
         rentMap.put("landlord_id",landlord_id);
         rentMap.put("rent_type",rent_type);
@@ -142,6 +141,7 @@ public class RentServiceImpl implements RentService {
                 Integer count = rentMapper.selectRentListByLandlordIdCount(rentMap);
                 if(rentList != null) {
                     for (Rent rent : rentList) {
+                        Map<String,Object> rentInfoMap = new HashMap<>();
                         rentInfoMap.clear();
                         rentInfoMap.put("rent", rent);
                         Tenant tenant = tenantMapper.selectTenantById(rent.getTenant_id());

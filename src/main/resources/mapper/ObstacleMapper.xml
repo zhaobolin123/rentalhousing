@@ -15,7 +15,10 @@
     </select>
 
     <select id="selectObstacleListByLandlordId" parameterType="map" resultType="com.rentalhousing.po.Obstacle">
-      select * from obstacle where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id}) and obstacle_state in (#{obstacle_state},#{obstacle_state2})  limit #{currIndex},#{pageSize};
+      select * from obstacle where
+      housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id})
+      and obstacle_state = #{obstacle_state}
+      limit #{currIndex},#{pageSize};
     </select>
 
     <select id="selectObstacleListByTenantIdCount" parameterType="map" resultType="java.lang.Integer">

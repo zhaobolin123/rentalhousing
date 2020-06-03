@@ -91,7 +91,6 @@ public class ObstacleServiceImpl implements ObstacleService {
             Map<String,Object> map = new HashMap<>();
             List<Obstacle> obstacleList = new ArrayList<Obstacle>();
             Map<String,Object> applyMap = new HashMap<>();
-            Map<String,Object> obstacleInfoMap = new HashMap<>();
             ArrayList obstacleInfoList = new ArrayList<>();
             applyMap.put("tenant_id",tenant_id);
             applyMap.put("currIndex",(currIndex-1)*pageSize);
@@ -106,6 +105,7 @@ public class ObstacleServiceImpl implements ObstacleService {
                     Integer count = obstacleMapper.selectObstacleListByTenantIdCount(applyMap);
                     if(obstacleList != null) {
                         for (Obstacle obstacle : obstacleList) {
+                            Map<String,Object> obstacleInfoMap = new HashMap<>();
                             obstacleInfoMap.clear();
                             obstacleInfoMap.put("obstacle", obstacle);
                             Tenant tenant = tenantMapper.selectTenantById(tenant_id);
@@ -132,9 +132,9 @@ public class ObstacleServiceImpl implements ObstacleService {
         Map<String,Object> map = new HashMap<>();
         List<Obstacle> obstacleList = new ArrayList<Obstacle>();
         Map<String,Object> applyMap = new HashMap<>();
-        Map<String,Object> obstacleInfoMap = new HashMap<>();
         ArrayList obstacleInfoList = new ArrayList<>();
         applyMap.put("landlord_id",landlord_id);
+        applyMap.put("obstacle_state",obstacle_state);
         applyMap.put("currIndex",(currIndex-1)*pageSize);
         applyMap.put("pageSize",pageSize);
 
@@ -146,17 +146,11 @@ public class ObstacleServiceImpl implements ObstacleService {
         }
         else{
             try {
-                if(0==obstacle_state){
-                    applyMap.put("obstacle_state",0);
-                    applyMap.put("obstacle_state2",0);
-                }else{
-                    applyMap.put("obstacle_state",1);
-                    applyMap.put("obstacle_state2",2);
-                }
                 obstacleList = obstacleMapper.selectObstacleListByLandlordId(applyMap);
                 Integer count = obstacleMapper.selectObstacleListByLandlordIdCount(applyMap);
                 if(obstacleList != null) {
                     for (Obstacle obstacle : obstacleList) {
+                        Map<String,Object> obstacleInfoMap = new HashMap<>();
                         obstacleInfoMap.clear();
                         obstacleInfoMap.put("obstacle", obstacle);
                         Tenant tenant = tenantMapper.selectTenantById(obstacle.getTenant_id());

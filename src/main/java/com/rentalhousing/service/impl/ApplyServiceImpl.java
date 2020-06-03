@@ -90,7 +90,6 @@ public class ApplyServiceImpl implements ApplyService {
             Map<String,Object> map = new HashMap<>();
             List<Apply> applyList = new ArrayList<Apply>();
             Map<String,Object> applyMap = new HashMap<>();
-            Map<String,Object> applyInfoMap = new HashMap<>();
             ArrayList applyInfoList = new ArrayList<>();
             applyMap.put("tenant_id",tenant_id);
             applyMap.put("apply_type",apply_type);
@@ -107,6 +106,7 @@ public class ApplyServiceImpl implements ApplyService {
                     Integer count = applyMapper.selectApplyListByTenantIdCount(applyMap);
                     if(applyList != null) {
                         for (Apply apply : applyList) {
+                            Map<String,Object> applyInfoMap = new HashMap<>();
                             applyInfoMap.clear();
                             applyInfoMap.put("apply", apply);
                             Tenant tenant = tenantMapper.selectTenantById(tenant_id);
@@ -133,7 +133,6 @@ public class ApplyServiceImpl implements ApplyService {
         Map<String,Object> map = new HashMap<>();
         List<Apply> applyList = new ArrayList<Apply>();
         Map<String,Object> applyMap = new HashMap<>();
-        Map<String,Object> applyInfoMap = new HashMap<>();
         ArrayList applyInfoList = new ArrayList<>();
         applyMap.put("landlord_id",landlord_id);
         applyMap.put("apply_type",apply_type);
@@ -150,6 +149,7 @@ public class ApplyServiceImpl implements ApplyService {
                 Integer count = applyMapper.selectApplyListByLandlordIdCount(applyMap);
                 if(applyList != null) {
                     for (Apply apply : applyList) {
+                        Map<String,Object> applyInfoMap = new HashMap<>();
                         applyInfoMap.clear();
                         applyInfoMap.put("apply", apply);
                         Tenant tenant = tenantMapper.selectTenantById(apply.getTenant_id());

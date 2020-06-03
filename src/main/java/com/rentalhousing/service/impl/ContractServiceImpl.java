@@ -1,9 +1,11 @@
 package com.rentalhousing.service.impl;
 
 import com.rentalhousing.mapper.ContractMapper;
+import com.rentalhousing.mapper.HousingresourcesMapper;
 import com.rentalhousing.mapper.LandlordMapper;
 import com.rentalhousing.mapper.TenantMapper;
 import com.rentalhousing.po.Contract;
+import com.rentalhousing.po.Housingresources;
 import com.rentalhousing.po.Landlord;
 import com.rentalhousing.po.Tenant;
 import com.rentalhousing.service.ContractService;
@@ -32,6 +34,8 @@ public class ContractServiceImpl implements ContractService {
     private TenantMapper tenantMapper;
     @Autowired
     private LandlordMapper landlordMapper;
+    @Autowired
+    private HousingresourcesMapper housingresourcesMapper;
 
     //根据id查询合同
     @Override
@@ -84,7 +88,6 @@ public class ContractServiceImpl implements ContractService {
         Map<String,Object> map = new HashMap<>();
         List<Contract> contractList = new ArrayList<Contract>();
         Map<String,Object> applyMap = new HashMap<>();
-        Map<String,Object> contractInfoMap = new HashMap<>();
         ArrayList contractInfoList = new ArrayList<>();
         applyMap.put("currIndex",(currIndex-1)*pageSize);
         applyMap.put("pageSize",pageSize);
@@ -99,10 +102,13 @@ public class ContractServiceImpl implements ContractService {
                 Integer count = contractMapper.selectContractListByLandlordIdCount(applyMap);
                 if(contractList != null) {
                     for (Contract contract : contractList) {
+                        Map<String,Object> contractInfoMap = new HashMap<>();
                         contractInfoMap.clear();
                         contractInfoMap.put("contract", contract);
                         Tenant tenant = tenantMapper.selectTenantById(contract.getTenant_id());
                         contractInfoMap.put("tenant", tenant);
+                        Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(contract.getHousingresources_id());
+                        contractInfoMap.put("housingresources", housingresources);
                         Landlord landlord = landlordMapper.selectById(contract.getLandlord_id());
                         contractInfoMap.put("landlord", landlord);
                         contractInfoList.add(contractInfoMap);

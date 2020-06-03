@@ -28,6 +28,12 @@ public interface LeaseMapper {
     //根据租客id查询租赁列表
     List<Lease> selectLeaseListByTenantId(Integer tenant_id);
 
+    //根据房东id查询租赁列表总数
+    Integer selectLeaseListByLandlordIdCount(Map<String,Object> applyMap);
+
+    //根据租客id查询租赁列表总数
+    Integer selectLeaseListByTenantIdCount(Integer tenant_id);
+
     //修改租赁信息
     void updateLease(Integer lease_id);
 

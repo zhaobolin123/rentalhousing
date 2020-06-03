@@ -93,7 +93,6 @@ public class LeaseServiceImpl implements LeaseService {
         Map<String,Object> map = new HashMap<>();
         List<Lease> leaseList = new ArrayList<Lease>();
         Map<String,Object> applyMap = new HashMap<>();
-        Map<String,Object> leaseInfoMap = new HashMap<>();
         ArrayList leaseInfoList = new ArrayList<>();
         applyMap.put("landlord_id",landlord_id);
         applyMap.put("lease_type",lease_type);
@@ -109,8 +108,10 @@ public class LeaseServiceImpl implements LeaseService {
         else{
             try {
                 leaseList = leaseMapper.selectLeaseListByLandlordId(applyMap);
+                Integer leaseListCount = leaseMapper.selectLeaseListByLandlordIdCount(applyMap);
                 if(leaseList != null) {
                     for (Lease lease : leaseList) {
+                        Map<String,Object> leaseInfoMap = new HashMap<>();
                         leaseInfoMap.clear();
                         leaseInfoMap.put("lease", lease);
                         Tenant tenant = tenantMapper.selectTenantById(lease.getTenant_id());
@@ -121,6 +122,7 @@ public class LeaseServiceImpl implements LeaseService {
                         leaseInfoList.add(leaseInfoMap);
                     }
                 }
+                map.put("count",leaseListCount);
                 map.put("leaseInfoList",leaseInfoList);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -135,7 +137,6 @@ public class LeaseServiceImpl implements LeaseService {
     public Map<String, Object> selectLeaseListByTenantId(Integer tenant_id) throws Exception {
         Map<String,Object> map = new HashMap<>();
         List<Lease> leaseList = new ArrayList<Lease>();
-        Map<String,Object> leaseInfoMap = new HashMap<>();
         ArrayList leaseInfoList = new ArrayList<>();
 
         if (StringUtils.isEmpty(tenant_id) || Objects.equals("",tenant_id)) {
@@ -144,8 +145,10 @@ public class LeaseServiceImpl implements LeaseService {
         else{
             try {
                 leaseList = leaseMapper.selectLeaseListByTenantId(tenant_id);
+                Integer leaseListCount = leaseMapper.selectLeaseListByTenantIdCount(tenant_id);
                 if(leaseList != null) {
                     for (Lease lease : leaseList) {
+                        Map<String,Object> leaseInfoMap = new HashMap<>();
                         leaseInfoMap.clear();
                         leaseInfoMap.put("lease", lease);
                         Tenant tenant = tenantMapper.selectTenantById(tenant_id);
@@ -156,6 +159,7 @@ public class LeaseServiceImpl implements LeaseService {
                         leaseInfoList.add(leaseInfoMap);
                     }
                 }
+                map.put("count",leaseListCount);
                 map.put("leaseInfoList",leaseInfoList);
             } catch (Exception e) {
                 e.printStackTrace();
