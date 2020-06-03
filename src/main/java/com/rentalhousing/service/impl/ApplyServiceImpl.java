@@ -112,6 +112,7 @@ public class ApplyServiceImpl implements ApplyService {
                             Tenant tenant = tenantMapper.selectTenantById(tenant_id);
                             applyInfoMap.put("tenant", tenant);
                             Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(apply.getHousingresources_id());
+                            applyInfoMap.put("housingresources", housingresources);
                             Landlord landlord = landlordMapper.selectById(housingresources.getLandlord_id());
                             applyInfoMap.put("landlord", landlord);
                             applyInfoList.add(applyInfoMap);
@@ -154,6 +155,8 @@ public class ApplyServiceImpl implements ApplyService {
                         applyInfoMap.put("apply", apply);
                         Tenant tenant = tenantMapper.selectTenantById(apply.getTenant_id());
                         applyInfoMap.put("tenant", tenant);
+                        Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(apply.getHousingresources_id());
+                        applyInfoMap.put("housingresources", housingresources);
                         Landlord landlord = landlordMapper.selectById(landlord_id);
                         applyInfoMap.put("landlord", landlord);
                         applyInfoList.add(applyInfoMap);

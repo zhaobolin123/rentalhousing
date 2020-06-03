@@ -117,6 +117,7 @@ public class LeaseServiceImpl implements LeaseService {
                         Tenant tenant = tenantMapper.selectTenantById(lease.getTenant_id());
                         leaseInfoMap.put("tenant", tenant);
                         Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(lease.getHousingresources_id());
+                        leaseInfoMap.put("housingresources", housingresources);
                         Landlord landlord = landlordMapper.selectById(housingresources.getLandlord_id());
                         leaseInfoMap.put("landlord", landlord);
                         leaseInfoList.add(leaseInfoMap);
@@ -154,6 +155,7 @@ public class LeaseServiceImpl implements LeaseService {
                         Tenant tenant = tenantMapper.selectTenantById(tenant_id);
                         leaseInfoMap.put("tenant", tenant);
                         Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(lease.getHousingresources_id());
+                        leaseInfoMap.put("housingresources", housingresources);
                         Landlord landlord = landlordMapper.selectById(housingresources.getLandlord_id());
                         leaseInfoMap.put("landlord", landlord);
                         leaseInfoList.add(leaseInfoMap);
@@ -187,6 +189,8 @@ public class LeaseServiceImpl implements LeaseService {
                 housingresources.setHousingresources_state(0);
                 leaseMapper.updateLease(lease.getLease_id());
                 housingresourcesMapper.updateHousingresourcesinfo(housingresources);
+                Housingresources housingresourcesInfo = housingresourcesMapper.selectHousingresourcesById(lease.getHousingresources_id());
+                map.put("housingresourcesInfo", housingresourcesInfo);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResUtil.error(map,"005","异常,请联系管理员！");

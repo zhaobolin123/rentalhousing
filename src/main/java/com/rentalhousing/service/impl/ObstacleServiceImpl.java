@@ -111,6 +111,7 @@ public class ObstacleServiceImpl implements ObstacleService {
                             Tenant tenant = tenantMapper.selectTenantById(tenant_id);
                             obstacleInfoMap.put("tenant", tenant);
                             Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(obstacle.getHousingresources_id());
+                            obstacleInfoMap.put("housingresources", housingresources);
                             Landlord landlord = landlordMapper.selectById(housingresources.getLandlord_id());
                             obstacleInfoMap.put("landlord", landlord);
                             obstacleInfoList.add(obstacleInfoMap);
@@ -155,6 +156,8 @@ public class ObstacleServiceImpl implements ObstacleService {
                         obstacleInfoMap.put("obstacle", obstacle);
                         Tenant tenant = tenantMapper.selectTenantById(obstacle.getTenant_id());
                         obstacleInfoMap.put("tenant", tenant);
+                        Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(obstacle.getHousingresources_id());
+                        obstacleInfoMap.put("housingresources", housingresources);
                         Landlord landlord = landlordMapper.selectById(landlord_id);
                         obstacleInfoMap.put("landlord", landlord);
                         obstacleInfoList.add(obstacleInfoMap);
