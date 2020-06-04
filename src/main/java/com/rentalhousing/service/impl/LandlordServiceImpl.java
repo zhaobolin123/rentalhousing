@@ -67,9 +67,7 @@ public class LandlordServiceImpl implements LandlordService {
                 if (0!=landlordMapper.isRegist(landlord.getLandlord_phone())){
                     return ResUtil.error(map,"002","手机号已被注册！");
                 }
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String nowdayTime = dateFormat.format(new Date());
-                Date nowDate = dateFormat.parse(nowdayTime);
+                long nowDate = System.currentTimeMillis();
                 landlord.setLandlord_time(nowDate);
 
                 landlordMapper.registLandlord(landlord);

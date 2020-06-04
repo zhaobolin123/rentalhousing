@@ -1,5 +1,6 @@
 package com.rentalhousing.po;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ public class Apply {
     private Integer tenant_id;
     private Integer housingresources_id;
     private Integer apply_type;
-    private Date apply_time;
+    private Long apply_time;
     private String apply_remake;
     private String apply_liaison;
     private String apply_contact;
@@ -54,11 +55,11 @@ public class Apply {
         this.apply_type = apply_type;
     }
 
-    public Date getApply_time() {
+    public Long getApply_time() {
         return apply_time;
     }
 
-    public void setApply_time(Date apply_time) {
+    public void setApply_time(Long apply_time) {
         this.apply_time = apply_time;
     }
 

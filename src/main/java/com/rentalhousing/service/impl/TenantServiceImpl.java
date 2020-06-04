@@ -66,9 +66,7 @@ public class TenantServiceImpl implements TenantService {
                 if (0!=tenantMapper.isTenantRegist(tenant.getTenant_phone())){
                     return ResUtil.error(map,"002","手机号已被注册！");
                 }
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String nowdayTime = dateFormat.format(new Date());
-                Date nowDate = dateFormat.parse(nowdayTime);
+                long nowDate = System.currentTimeMillis();
                 tenant.setTenant_time(nowDate);
                 tenant.setTenant_nickname(NickName.generateName());
 

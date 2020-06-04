@@ -70,9 +70,7 @@ public class ApplyServiceImpl implements ApplyService {
         }
         else{
             try {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String nowdayTime = dateFormat.format(new Date());
-                Date nowDate = dateFormat.parse(nowdayTime);
+                Long nowDate = System.currentTimeMillis();
                 apply.setApply_time(nowDate);
 
                 applyMapper.AddApply(apply);

@@ -1,5 +1,6 @@
 package com.rentalhousing.po;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ public class Lease {
     private Integer lease_id;
     private Integer tenant_id;
     private Integer housingresources_id;
-    private Date lease_time;
+    private Long lease_time;
     private String lease_type;
 
     public Integer getLease_id() {
@@ -42,11 +43,11 @@ public class Lease {
         this.housingresources_id = housingresources_id;
     }
 
-    public Date getLease_time() {
+    public Long getLease_time() {
         return lease_time;
     }
 
-    public void setLease_time(Date lease_time) {
+    public void setLease_time(Long lease_time) {
         this.lease_time = lease_time;
     }
 

@@ -191,9 +191,7 @@ public class RentServiceImpl implements RentService {
         }
         else{
             try {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String nowdayTime = dateFormat.format(new Date());
-                Date nowDate = dateFormat.parse(nowdayTime);
+                long nowDate = System.currentTimeMillis();
                 rent.setRent_endtime(nowDate);
                 rent.setRent_type(1);
                 rent.setRent_id(rent_id);

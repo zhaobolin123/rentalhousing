@@ -71,9 +71,7 @@ public class LeaseServiceImpl implements LeaseService {
         }
         else{
             try {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String nowdayTime = dateFormat.format(new Date());
-                Date nowDate = dateFormat.parse(nowdayTime);
+                long nowDate = System.currentTimeMillis();
                 lease.setLease_time(nowDate);
                 housingresources.setHousingresources_id(lease.getHousingresources_id());
                 housingresources.setHousingresources_state(1);

@@ -1,5 +1,6 @@
 package com.rentalhousing.po;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -22,7 +23,7 @@ public class Landlord {
     private String landlord_contact;
     private String landlord_pic;
     private Integer landlord_sex;
-    private Date landlord_time;
+    private Long landlord_time;
 
     public Integer getLandlord_id() {
         return landlord_id;
@@ -104,11 +105,11 @@ public class Landlord {
         this.landlord_sex = landlord_sex;
     }
 
-    public Date getLandlord_time() {
+    public Long getLandlord_time() {
         return landlord_time;
     }
 
-    public void setLandlord_time(Date landlord_time) {
+    public void setLandlord_time(Long landlord_time) {
         this.landlord_time = landlord_time;
     }
 }

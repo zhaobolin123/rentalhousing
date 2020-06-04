@@ -1,5 +1,6 @@
 package com.rentalhousing.po;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -17,8 +18,8 @@ public class Obstacle {
     private Integer housingresources_id;
     private String obstacle_detail;
     private Integer obstacle_state;
-    private Date obstacle_time;
-    private Date obstacle_completiontime;
+    private Long obstacle_time;
+    private Long obstacle_completiontime;
     private String obstacle_pic;
 
     public Integer getObstacle_id() {
@@ -61,19 +62,19 @@ public class Obstacle {
         this.obstacle_state = obstacle_state;
     }
 
-    public Date getObstacle_time() {
+    public Long getObstacle_time() {
         return obstacle_time;
     }
 
-    public void setObstacle_time(Date obstacle_time) {
+    public void setObstacle_time(Long obstacle_time) {
         this.obstacle_time = obstacle_time;
     }
 
-    public Date getObstacle_completiontime() {
+    public Long getObstacle_completiontime() {
         return obstacle_completiontime;
     }
 
-    public void setObstacle_completiontime(Date obstacle_completiontime) {
+    public void setObstacle_completiontime(Long obstacle_completiontime) {
         this.obstacle_completiontime = obstacle_completiontime;
     }
 

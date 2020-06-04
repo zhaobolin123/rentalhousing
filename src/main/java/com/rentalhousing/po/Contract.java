@@ -1,5 +1,6 @@
 package com.rentalhousing.po;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -18,8 +19,8 @@ public class Contract {
     private Integer housingresources_id;
     private String housingresources_renttype;
     private String contract_price;
-    private String contract_begintime;
-    private String contract_endtime;
+    private Long contract_begintime;
+    private Long contract_endtime;
 
     public Integer getContract_id() {
         return contract_id;
@@ -69,19 +70,19 @@ public class Contract {
         this.contract_price = contract_price;
     }
 
-    public String getContract_begintime() {
+    public Long getContract_begintime() {
         return contract_begintime;
     }
 
-    public void setContract_begintime(String contract_begintime) {
+    public void setContract_begintime(Long contract_begintime) {
         this.contract_begintime = contract_begintime;
     }
 
-    public String getContract_endtime() {
+    public Long getContract_endtime() {
         return contract_endtime;
     }
 
-    public void setContract_endtime(String contract_endtime) {
+    public void setContract_endtime(Long contract_endtime) {
         this.contract_endtime = contract_endtime;
     }
 }

@@ -71,9 +71,7 @@ public class ObstacleServiceImpl implements ObstacleService {
         }
         else{
             try {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String nowdayTime = dateFormat.format(new Date());
-                Date nowDate = dateFormat.parse(nowdayTime);
+                long nowDate = System.currentTimeMillis();
                 obstacle.setObstacle_time(nowDate);
 
                 obstacleMapper.AddObstacle(obstacle);
@@ -187,9 +185,7 @@ public class ObstacleServiceImpl implements ObstacleService {
                 }
                 else{
                     if(2 == obstacle.getObstacle_state()){
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        String nowdayTime = dateFormat.format(new Date());
-                        Date nowDate = dateFormat.parse(nowdayTime);
+                        long nowDate = System.currentTimeMillis();
                         obstacle.setObstacle_completiontime(nowDate);
                     }
                 }
