@@ -133,26 +133,26 @@ public class LeaseServiceImpl implements LeaseService {
 
     //根据租客id查询租赁列表
     @Override
-    public Map<String, Object> selectLeaseListByTenantId(Integer tenant_id) throws Exception {
+    public Map<String, Object> selectLeaseListByTenantId(Lease lease) throws Exception {
         Map<String,Object> map = new HashMap<>();
         List<Lease> leaseList = new ArrayList<Lease>();
         ArrayList leaseInfoList = new ArrayList<>();
 
-        if (StringUtils.isEmpty(tenant_id) || Objects.equals("",tenant_id)) {
+        if (StringUtils.isEmpty(lease.getTenant_id()) || Objects.equals("",lease.getTenant_id())) {
             return ResUtil.error(map,"001","传入参数不能为空!");
         }
         else{
             try {
-                leaseList = leaseMapper.selectLeaseListByTenantId(tenant_id);
-                Integer leaseListCount = leaseMapper.selectLeaseListByTenantIdCount(tenant_id);
+                leaseList = leaseMapper.selectLeaseListByTenantId(lease);
+                Integer leaseListCount = leaseMapper.selectLeaseListByTenantIdCount(lease);
                 if(leaseList != null) {
-                    for (Lease lease : leaseList) {
+                    for (Lease lease2 : leaseList) {
                         Map<String,Object> leaseInfoMap = new HashMap<>();
                         leaseInfoMap.clear();
-                        leaseInfoMap.put("lease", lease);
-                        Tenant tenant = tenantMapper.selectTenantById(tenant_id);
+                        leaseInfoMap.put("lease", lease2);
+                        Tenant tenant = tenantMapper.selectTenantById(lease2.getTenant_id());
                         leaseInfoMap.put("tenant", tenant);
-                        Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(lease.getHousingresources_id());
+                        Housingresources housingresources = housingresourcesMapper.selectHousingresourcesById(lease2.getHousingresources_id());
                         leaseInfoMap.put("housingresources", housingresources);
                         Landlord landlord = landlordMapper.selectById(housingresources.getLandlord_id());
                         leaseInfoMap.put("landlord", landlord);

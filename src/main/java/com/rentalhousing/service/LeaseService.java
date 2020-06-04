@@ -23,7 +23,7 @@ public interface LeaseService {
     Map<String,Object> selectLeaseListByLandlordId(Integer landlord_id,String lease_type,Integer currIndex, Integer pageSize) throws Exception;
 
     //根据租客id查询租赁列表
-    Map<String,Object> selectLeaseListByTenantId(Integer tenant_id) throws Exception;
+    Map<String,Object> selectLeaseListByTenantId(Lease lease) throws Exception;
 
     //修改租赁信息
     Map<String,Object> updateLease(Lease lease) throws Exception;

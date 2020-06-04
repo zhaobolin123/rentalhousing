@@ -49,8 +49,8 @@ public class LeaseController {
     //根据租客id查询租赁列表
     @RequestMapping(value = "selectLeaseListByTenantId",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> selectLeaseListByTenantId(Integer tenant_id) throws Exception{
-        Map<String,Object> map = leaseService.selectLeaseListByTenantId(tenant_id);
+    public Map<String,Object> selectLeaseListByTenantId(Lease lease) throws Exception{
+        Map<String,Object> map = leaseService.selectLeaseListByTenantId(lease);
         return map;
     }
 

@@ -15,16 +15,16 @@
       select * from lease where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id}) and lease_type = #{lease_type} limit #{currIndex},#{pageSize};
     </select>
 
-    <select id="selectLeaseListByTenantId" parameterType="java.lang.Integer" resultType="com.rentalhousing.po.Lease">
-        select * from lease where tenant_id = #{tenant_id};
+    <select id="selectLeaseListByTenantId" parameterType="com.rentalhousing.po.Lease" resultType="com.rentalhousing.po.Lease">
+        select * from lease where tenant_id = #{tenant_id} and lease_type = #{lease_type} ;
     </select>
 
     <select id="selectLeaseListByLandlordIdCount" parameterType="map" resultType="java.lang.Integer">
       select count(*) from lease where housingresources_id in (SELECT housingresources_id from housingresources where landlord_id = #{landlord_id}) and lease_type = #{lease_type} limit #{currIndex},#{pageSize};
     </select>
 
-    <select id="selectLeaseListByTenantIdCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        select count(*) from lease where tenant_id = #{tenant_id};
+    <select id="selectLeaseListByTenantIdCount" parameterType="com.rentalhousing.po.Lease" resultType="java.lang.Integer">
+        select count(*) from lease where tenant_id = #{tenant_id} and lease_type = #{lease_type};
     </select>
     <update id="updateLease" parameterType="com.rentalhousing.po.Lease">
         UPDATE lease set
