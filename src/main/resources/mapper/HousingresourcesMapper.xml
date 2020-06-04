@@ -53,6 +53,7 @@
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <include refid="HousingresourcesType" />
         </trim>
+        order by housingresources_id desc
         limit #{currIndex},#{pageSize}
     </select>
 
