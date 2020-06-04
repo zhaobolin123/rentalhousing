@@ -47,5 +47,7 @@
         </set>
         where obstacle_id = #{obstacle_id};
     </update>
-
+    <delete id="deleteObstacle" parameterType="java.lang.Integer">
+        DELETE FROM obstacle WHERE obstacle_id = #{obstacle_id}
+    </delete>
 </mapper>

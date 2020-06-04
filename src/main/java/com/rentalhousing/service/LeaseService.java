@@ -27,4 +27,7 @@ public interface LeaseService {
 
     //修改租赁信息
     Map<String,Object> updateLease(Lease lease) throws Exception;
+
+    //删除租赁
+    Map<String,Object> deleteLease(Integer lease_id) throws Exception;
 }

@@ -37,4 +37,6 @@ public interface ObstacleMapper {
     //修改报障信息
     void updateObstacle(Obstacle obstacle);
 
+    //删除报障
+    void deleteObstacle(Integer rent_id);
 }

@@ -197,4 +197,23 @@ public class ObstacleServiceImpl implements ObstacleService {
         }
         return ResUtil.error(map,"000",ResUtil.SUCCESS);
     }
+
+    //删除报障
+    @Override
+    public Map<String, Object> deleteObstacle(Integer obstacle_id) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+
+        if (StringUtils.isEmpty(obstacle_id) || Objects.equals("", obstacle_id)) {
+            return ResUtil.error(map,"001","传入参数不能为空!");
+        }
+        else{
+            try {
+                obstacleMapper.deleteObstacle(obstacle_id);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResUtil.error(map,"005","异常,请联系管理员！");
+            }
+        }
+        return ResUtil.error(map,"000",ResUtil.SUCCESS);
+    }
 }

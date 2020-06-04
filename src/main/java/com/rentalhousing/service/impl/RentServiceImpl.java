@@ -203,4 +203,23 @@ public class RentServiceImpl implements RentService {
         }
         return ResUtil.error(map,"000",ResUtil.SUCCESS);
     }
+
+    //删除租金
+    @Override
+    public Map<String, Object> deleteRent(Integer rent_id) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+
+        if (StringUtils.isEmpty(rent_id) || Objects.equals("", rent_id)) {
+            return ResUtil.error(map,"001","传入参数不能为空!");
+        }
+        else{
+            try {
+                rentMapper.deleteRent(rent_id);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResUtil.error(map,"005","异常,请联系管理员！");
+            }
+        }
+        return ResUtil.error(map,"000",ResUtil.SUCCESS);
+    }
 }

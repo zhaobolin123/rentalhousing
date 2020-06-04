@@ -142,4 +142,23 @@ public class ContractServiceImpl implements ContractService {
         }
         return ResUtil.error(map,"000",ResUtil.SUCCESS);
     }
+
+    //删除合同
+    @Override
+    public Map<String, Object> deleteContract(Integer contract_id) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+
+        if (StringUtils.isEmpty(contract_id) || Objects.equals("", contract_id)) {
+            return ResUtil.error(map,"001","传入参数不能为空!");
+        }
+        else{
+            try {
+                contractMapper.deleteContract(contract_id);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResUtil.error(map,"005","异常,请联系管理员！");
+            }
+        }
+        return ResUtil.error(map,"000",ResUtil.SUCCESS);
+    }
 }

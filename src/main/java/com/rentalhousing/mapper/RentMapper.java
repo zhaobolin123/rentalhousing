@@ -37,4 +37,7 @@ public interface RentMapper {
     //修改租金信息
     void updateRent(Rent rent);
 
+    //删除租金
+    void deleteRent(Integer rent_id);
+
 }

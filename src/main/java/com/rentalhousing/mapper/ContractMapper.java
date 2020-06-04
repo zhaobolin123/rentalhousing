@@ -31,4 +31,7 @@ public interface ContractMapper {
     //修改合同信息
     void updateContract(Contract contract);
 
+    //删除合同
+    void deleteContract(Integer contract_id);
+
 }

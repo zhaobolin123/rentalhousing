@@ -62,4 +62,12 @@ public class ApplyController {
         Map<String,Object> map = applyService.updateApply(apply);
         return map;
     }
+
+    //删除申请
+    @RequestMapping(value = "deleteApply",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> deleteApply(Integer apply_id) throws Exception{
+        Map<String,Object> map = applyService.deleteApply(apply_id);
+        return map;
+    }
 }

@@ -53,5 +53,7 @@
         </set>
         where contract_id = #{contract_id};
     </update>
-
+    <delete id="deleteContract" parameterType="java.lang.Integer">
+        DELETE FROM contract WHERE contract_id = #{contract_id}
+    </delete>
 </mapper>

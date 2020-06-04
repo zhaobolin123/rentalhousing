@@ -43,5 +43,7 @@
         </set>
         where rent_id = #{rent_id};
     </update>
-
+    <delete id="deleteRent" parameterType="java.lang.Integer">
+        DELETE FROM rent WHERE rent_id = #{rent_id}
+    </delete>
 </mapper>

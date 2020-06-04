@@ -27,4 +27,7 @@ public interface ApplyService {
 
     //修改申请信息
     Map<String,Object> updateApply(Apply apply) throws Exception;
+
+    //删除申请
+    Map<String,Object> deleteApply(Integer apply_id) throws Exception;
 }

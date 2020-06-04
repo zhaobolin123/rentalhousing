@@ -62,4 +62,12 @@ public class ObstacleController {
         Map<String,Object> map = obstacleService.updateObstacle(obstacle);
         return map;
     }
+
+    //删除报障
+    @RequestMapping(value = "deleteObstacle",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> deleteObstacle(Integer obstacle_id) throws Exception{
+        Map<String,Object> map = obstacleService.deleteObstacle(obstacle_id);
+        return map;
+    }
 }

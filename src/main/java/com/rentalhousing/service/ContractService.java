@@ -24,4 +24,7 @@ public interface ContractService {
 
     //修改合同信息
     Map<String,Object> updateContract(Contract contract) throws Exception;
+
+    //删除合同
+    Map<String,Object> deleteContract(Integer contract_id) throws Exception;
 }

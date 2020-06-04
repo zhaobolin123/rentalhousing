@@ -61,4 +61,12 @@ public class LeaseController {
         Map<String,Object> map = leaseService.updateLease(lease);
         return map;
     }
+
+    //删除租赁
+    @RequestMapping(value = "deleteLease",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> deleteLease(Integer lease_id) throws Exception{
+        Map<String,Object> map = leaseService.deleteLease(lease_id);
+        return map;
+    }
 }

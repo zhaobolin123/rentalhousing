@@ -53,4 +53,12 @@ public class ContractController {
         Map<String,Object> map = contractService.updateContract(contract);
         return map;
     }
+
+    //删除合同
+    @RequestMapping(value = "deleteContract",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> deleteContract(Integer contract_id) throws Exception{
+        Map<String,Object> map = contractService.deleteContract(contract_id);
+        return map;
+    }
 }

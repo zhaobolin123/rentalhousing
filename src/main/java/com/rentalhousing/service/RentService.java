@@ -31,4 +31,6 @@ public interface RentService {
     //缴纳租金
     Map<String,Object> payRent(Integer rent_id) throws Exception;
 
+    //删除租金
+    Map<String,Object> deleteRent(Integer rent_id) throws Exception;
 }

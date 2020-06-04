@@ -37,4 +37,7 @@ public interface ApplyMapper {
     //修改申请信息
     void updateApply(Apply apply);
 
+    //删除申请
+    void deleteApply(Integer apply_id);
+
 }

@@ -188,4 +188,24 @@ public class ApplyServiceImpl implements ApplyService {
         }
         return ResUtil.error(map,"000",ResUtil.SUCCESS);
     }
+
+
+    //删除申请
+    @Override
+    public Map<String, Object> deleteApply(Integer apply_id) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+
+        if (StringUtils.isEmpty(apply_id) || Objects.equals("", apply_id)) {
+            return ResUtil.error(map,"001","传入参数不能为空!");
+        }
+        else{
+            try {
+                applyMapper.deleteApply(apply_id);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResUtil.error(map,"005","异常,请联系管理员！");
+            }
+        }
+        return ResUtil.error(map,"000",ResUtil.SUCCESS);
+    }
 }

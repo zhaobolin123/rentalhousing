@@ -196,4 +196,23 @@ public class LeaseServiceImpl implements LeaseService {
         }
         return ResUtil.error(map,"000",ResUtil.SUCCESS);
     }
+
+    //删除租赁
+    @Override
+    public Map<String, Object> deleteLease(Integer lease_id) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+
+        if (StringUtils.isEmpty(lease_id) || Objects.equals("", lease_id)) {
+            return ResUtil.error(map,"001","传入参数不能为空!");
+        }
+        else{
+            try {
+                leaseMapper.deleteLease(lease_id);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResUtil.error(map,"005","异常,请联系管理员！");
+            }
+        }
+        return ResUtil.error(map,"000",ResUtil.SUCCESS);
+    }
 }

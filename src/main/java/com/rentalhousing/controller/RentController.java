@@ -69,4 +69,12 @@ public class RentController {
         Map<String,Object> map = rentService.payRent(rent_id);
         return map;
     }
+
+    //删除租金
+    @RequestMapping(value = "deleteRent",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> deleteRent(Integer rent_id) throws Exception{
+        Map<String,Object> map = rentService.deleteRent(rent_id);
+        return map;
+    }
 }

@@ -29,4 +29,7 @@ public interface ObstacleService {
 
     //修改报障信息
     Map<String,Object> updateObstacle(Obstacle obstacle) throws Exception;
+
+    //删除报障
+    Map<String,Object> deleteObstacle(Integer obstacle_id) throws Exception;
 }

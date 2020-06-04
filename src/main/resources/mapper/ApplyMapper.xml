@@ -59,5 +59,8 @@
         </set>
         where apply_id = #{apply_id};
     </update>
+    <delete id="deleteApply" parameterType="java.lang.Integer">
+        DELETE FROM apply WHERE apply_id = #{apply_id}
+    </delete>
 
 </mapper>

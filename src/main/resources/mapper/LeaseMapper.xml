@@ -31,5 +31,7 @@
                 lease_type=1
         where lease_id = #{lease_id};
     </update>
-
+    <delete id="deleteLease" parameterType="java.lang.Integer">
+        DELETE FROM lease WHERE lease_id = #{lease_id}
+    </delete>
 </mapper>

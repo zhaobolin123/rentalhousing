@@ -37,4 +37,7 @@ public interface LeaseMapper {
     //修改租赁信息
     void updateLease(Integer lease_id);
 
+    //删除租赁
+    void deleteLease(Integer lease_id);
+
 }
